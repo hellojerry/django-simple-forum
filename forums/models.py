@@ -16,15 +16,15 @@ class ForumCategory(models.Model):
     def __unicode__(self):
         return self.title
 '''
-'''
-come back to this later
-'''
+
 
 
 
 class Forum(models.Model):
     title = models.CharField(max_length=100)
     #moderators = models.ManyToManyField(UserProfile)
+    
+    #get rid of these and replay with FK to Category
     GENERAL = 'GENERAL'
     ENTERTAINMENT = 'ENTERTAINMENT'
     WORK = 'WORK'
@@ -34,6 +34,7 @@ class Forum(models.Model):
         (WORK,'WORK'),
     )
     forum_group = models.CharField(max_length=30, choices=FORUM_GROUPS, default=ENTERTAINMENT)
+    
     #category = models.ForeignKey(ForumCategory)
     is_active = models.BooleanField(default=True)
     
@@ -60,23 +61,19 @@ class Thread(models.Model):
     class Meta:
         ordering = ['-last_post']
     
-    '''
-    test this
-    '''
     
     def get_last_post(self):
         return self.post_set.all().latest('created')
+
+    def num_replies(self, ):
+        return self.post_set.all().count() - 1
+
     
     def get_absolute_url(self):
         return reverse('forums:thread', args=[self.id])
     
-    '''
-    test this!
-    '''
     
-    
-    def num_replies(self, ):
-        return self.post_set.all().count() - 1
+
     
     
     def __unicode__(self):

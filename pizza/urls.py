@@ -8,7 +8,6 @@ from profiles.views import RegisterView
 urlpatterns = patterns('',
 
     url(r'^$', ForumIndexView.as_view(), name='main'),
-    #url(r'^register/$', 'profiles.views.register_or_login', name='register'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^logout/$', 'profiles.views.my_logout', name='logout'),
     url(r'^forums/', include('forums.urls', namespace='forums')),

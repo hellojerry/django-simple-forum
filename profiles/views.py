@@ -21,15 +21,15 @@ class EditProfileView(UpdateView):
     template_name = 'edit_profile.html'
     form_class = EditProfileForm
 
-'''
-TEST THESE!
-'''
 
 
 
 def my_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+''' dump this and switch to CBV
+
 
 def register_or_login(request):
     template = 'auth.html'
@@ -90,7 +90,7 @@ def register_or_login(request):
     }
     
     return render(request, template, context)
-
+'''
 ###rewrite this to render two forms.
 
 class RegisterView(FormView):

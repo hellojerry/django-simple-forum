@@ -19,13 +19,7 @@ class PostForm(forms.ModelForm):
 
         
 
-
-
-'''
-going to need to rig up some js to get around this issue.
-'''
-
-    
+  
 
 
 

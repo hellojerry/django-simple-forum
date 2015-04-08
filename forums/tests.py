@@ -3,13 +3,10 @@ import unittest
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.http import HttpRequest
-
+from django.contrib.auth.models import User
 from .views import ForumIndexView, ForumView, ReplyFormView
 from .models import Forum, Thread, Post
 from .forms import PostForm, EMPTY_ITEM_ERROR
-## replace this with the get_user_model() once profiles are set up.
-from django.contrib.auth.models import User
-# Create your tests here.
 from profiles.models import Profile
 
 
@@ -140,7 +137,7 @@ class ThreadViewTest(TestCase):
         response = self.client.get('/forums/thread/%d/' % thread.id)
         self.assertIn(post1, list(response.context['object_list']))
         self.assertEqual(post1, list(response.context['object_list'])[0])
-        #####
+        
     def test_if_view_displays_form(self):
         thread = create_keyed_thread()
         form = PostForm

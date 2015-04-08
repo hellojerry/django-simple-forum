@@ -5,14 +5,8 @@ from PIL import Image
 
 
 
-
-
-
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    ## make this autocreate during registration
     name = models.CharField(max_length=25, blank=True, null=True)
     ##set this up as a defaultable
     avatar = models.ImageField(upload_to='avatars/%Y/%m/%d/', blank=True, null=True)
