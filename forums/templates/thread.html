@@ -1,0 +1,74 @@
+{% extends 'base.html'%}
+
+
+{% block title %}
+    <title>{{ forum.title }}</title>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="panel panel-general">
+
+  <div class="panel-heading"><a href='{{ thread.get_absolute_url}}'>{{ thread.title }}</a></div>
+
+
+  <table class="table table-bordered">
+    <thead>
+        <tr><th width='15%'>Poster</th><th width='80%'>Post</th><th width='5%'></th></tr>
+        
+    </thead>
+    <tbody>
+        {% for post in object_list %}
+            <tr><td><p>{{post.author}}</p>
+            <img src='{{MEDIA_URL}}{{post.author.profile.avatar}}' class='img-responsive'/></td>
+              <td><p>{{ post.text.rendered|safe }}</p></td><td></td></tr>
+            <tr><td>{{post.created}}</td>
+              <td><div class='btn-group pull-right' role='group' aria-label='...'>
+                <a href='#' class='btn btn-report'>Report This Post</a>
+                <a href='#' class='btn btn-quote'>Quote</a>
+                
+                
+                
+                
+              </div></td><td></td></tr>
+            
+        {% endfor %}
+        <tr><td></td>
+            <td>
+                <form id='reply' method='POST' action='{% url "forums:reply" thread.pk %}'>{% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value='Reply' class='btn btn-reply' style='margin-left:400px'/>
+                </form>    
+            </td>
+        </tr>
+        <tr><td></td><td><p class='pull-right'>PAGINATION PLACEHOLDER</p></td><td></td></tr>
+    </tbody>
+  </table>
+
+</div>    
+
+</div>    
+    
+{% endblock %}
+
+{% block jquery %}
+$('input, select, textarea').each(
+  $('textarea').val(' ')
+);
+
+$('#form').submit(function(){
+  if ($.trim($('#reply').val()) === "" ){
+  alert('you didn't fill out the field!');
+  return false;
+  }
+})
+
+
+
+
+
+
+{% endblock %}

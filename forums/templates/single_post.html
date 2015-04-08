@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+
+
+{% block title %}
+    <title>{{object.author}}'s post in "{{object.thread.title}}"</title>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="panel panel-general">
+  {% if request.user == object.author and object.thread.is_active == True %}
+
+  <div class="panel-heading">Edit Post in "{{ object.thread.title }}"</div>
+{% else %}
+<div class="panel-heading">{{object.author}}'s post in "{{ object.thread.title }}"</div>
+{% endif %}
+
+  <table class="table">
+    <thead>
+        <tr><th class='col-sm-2'>Poster</th><th class='col-sm-10'>Post</th></tr>
+        
+    </thead>
+    <tbody>
+        
+            <tr><td>{{object.author}}</td><td>{{ object.text }}</td></tr>
+       
+        <tr><td></td>
+            <td>
+                <form method='POST' action='{% url "forums:edit_post" object.pk %}'>{% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value='send'/>
+                </form>    
+            </td>
+        </tr>
+      
+    </tbody>
+  </table>
+</div>    
+    
+    
+{% endblock %}

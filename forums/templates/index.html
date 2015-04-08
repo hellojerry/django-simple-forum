@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+<title>Forums Index</title>
+
+{% endblock %}
+
+{% block stylesheet%}
+    <link rel='stylesheet' href='{{STATIC_URL}}index.css'>
+{% endblock %}
+
+{% block styles %}
+
+
+    
+{% endblock %}
+
+
+{% block content %}
+    
+
+<div class="panel panel-general">
+
+  <div class="panel-heading">General Interest</div>
+
+
+  <table class="table">
+    <thead>
+        <tr><th class='col-sm-6'>Title</th><th class='col-sm-2'>Most Popular Thread</th>
+            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Moderators</th></tr>
+        
+    </thead>
+    <tbody>
+        {% for forum in object_list %}
+            <tr>{% if forum.forum_group == 'GENERAL' %}
+                <td><a href='{{ forum.get_absolute_url }}'>{{ forum.title}}</a>
+            
+            
+            
+            </td><td></td><td></td><td></td> {% endif %}</tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<div class="panel panel-entertainment">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Entertainment</div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+        <tr><th class='col-sm-6'>Title</th><th class='col-sm-2'>Most Popular Thread</th>
+            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Moderators</th></tr>
+        
+    </thead>
+  </table>
+</div>
+
+
+
+<div class="panel panel-work">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Work & School</div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+        <tr><th class='col-sm-6'>Title</th><th class='col-sm-2'>Most Popular Thread</th>
+            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Moderators</th></tr>
+        
+    </thead>
+  </table>
+</div>
+
+
+
+    
+{% endblock %}

@@ -1,0 +1,125 @@
+{% load staticfiles %}
+{% load bbcode_tags %}
+<!DOCTYPE html>
+<html lang='en'>
+    
+<head>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/base.css" rel="stylesheet" media="screen">
+
+    
+    {% block title %}
+{% endblock %}
+{% block stylesheet %}
+{% endblock %}
+<style>
+    {% block styles %}
+{% endblock %}
+   </style> 
+</head>    
+<body style='background-color: #E6E6E6'>
+    
+
+
+
+<div id="custom-bootstrap-menu" class="navbar navbar-default fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="#">It's Pizza Time!</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="{% url 'main' %}">Home</a>
+                </li>
+                <li><a href="#">Products</a>
+                </li>
+                <li><a href="#">About Us</a>
+                </li>
+                <li><a href="#">Contact Us</a>
+                </li>
+            </ul>
+        <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right" role='navigation'>
+
+            {% if request.user.is_authenticated == True %}
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+            
+            <li><a href="{% url 'register' %}">Log In or Register</a></li>
+        {% endif %}
+          </ul>
+
+
+        </div>
+    </div>
+</div>
+<div class='container'>
+{% block breadcrumb %}
+    
+{% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+
+
+{% block footer %}
+
+{% endblock %}
+
+
+</div>
+
+
+         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        {% block jquery %}
+        {% endblock %}
+    });
+    
+    
+    
+</script>
+</body>    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</html>
+    

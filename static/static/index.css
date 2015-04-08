@@ -1,0 +1,23 @@
+
+
+.panel-general > .panel-heading {
+    background-color: #33CC33;
+    color:#f5f5f5;
+    border-color: #ddd ;
+    border-radius: 11px;
+}
+
+.panel-entertainment > .panel-heading {
+    background-color: #33D6FF;
+    color:#f5f5f5;
+    border-color: #ddd ;
+    border-radius: 11px;
+}
+
+.panel-work > .panel-heading{
+    background-color: #FF00FF;
+    color:#f5f5f5;
+    border-color: #ddd ;
+    border-radius: 11px;
+}
+

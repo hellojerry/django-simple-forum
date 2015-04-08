@@ -1,0 +1,92 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    
+    <title>{{ object.user.username }}</title>
+    
+{% endblock %}
+
+
+
+
+{% block content %}
+    
+ 
+    
+<div class='col-sm-4 col-sm-offset-1'>
+    <h1 style='margin-left:100px'>{{ object.user.username }}</h1>
+
+        <hr>
+            {% if object.avatar %}
+    <img src='{{MEDIA_URL}}{{object.avatar}}' class='img-responsive' style='margin-left:50px'/>
+            {% elif request.user == object.user %}
+    <p>It looks like you haven't set an avatar yet!</p>
+            {% elif request.user != object.user %}
+    <p>This person hasn't set an avatar yet!</p>
+            {% endif %}
+    <h3 style='margin-left:100px'>Info</h3>
+    <hr>
+            {% if object.description %}
+    <p>{{ object.description }}</p>
+            {% elif request.user == object.user %}
+    <p>Tell us about yourself!</p>
+            {% elif request.user != object.user %}
+    <p>This person hasn't written a description.</p>
+            {% endif %}
+    <hr>
+            {% if request.user != object.user %}    
+    <a href='#' class='btn btn-success' style='margin-left: 70px'>Send Private Message</a>
+            {% else %}
+    <a href='#' class='btn btn-success' style='margin-left: 70px'>Update Profile</a>
+            {% endif %}
+</div>
+    
+<div class='col-sm-4  col-sm-offset-2'>
+    <h1 style='text-align:center'>Posting Stats</h1>
+    <table class='table'>
+        <thead>
+            <th></th>
+            <th></th>
+
+
+        </thead>
+        <tbody>
+            <tr><td>Postcount</td><td class='pull-right'>{{ object.get_num_posts }}</td></tr>
+            <tr><td>Favorite Forum</td><td class='pull-right'>Placeholder</td></tr>
+        </tbody>
+    </table>
+    <hr>
+    <h1 style='text-align:center'>Recent Posts</h1>
+    <hr>
+    <ul>
+        {% for post in object.get_last_5_posts %}
+        <li style='list-style-type:none'><a href='{{ post.get_absolute_url }}'>{{post}}</a></li>
+        <p>{{ post }}</p>
+        <br>
+        {% endfor %}
+
+    </ul>
+    <table>
+        
+        
+        
+        
+    </table>
+</div>
+
+<div class='col-sm-12'><br><br><br><br><hr>
+    {% endblock %}
+    
+    
+</div>{% block footer %}
+
+{% include 'footer.html'%}
+{% endblock %}</div>
+
+
+    
+
+
+
+
+
