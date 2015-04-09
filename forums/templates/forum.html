@@ -30,7 +30,25 @@
         {% endfor %}
     </tbody>
   </table>
-</div>    
+   
     
     
+{% endblock %}
+
+{% block paginator %}
+{% if is_paginated %}
+<div class='pagination'>
+  <span class='page-links'>
+    
+      
+      <a href='?page={{ page_obj.number }}'>{{ page_obj.number}}</a>
+      
+    
+    
+    
+  </span>
+</div>  
+{% endif %} 
+</div> 
+  
 {% endblock %}

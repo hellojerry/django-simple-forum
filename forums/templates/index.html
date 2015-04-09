@@ -20,10 +20,10 @@
 
 {% block content %}
     
+{% for category in object_list %}
+<div class="{% cycle 'panel panel-general' 'panel panel-entertainment' 'panel panel-work' %}">
 
-<div class="panel panel-general">
-
-  <div class="panel-heading">General Interest</div>
+  <div class="panel-heading">{{ category.title }}</div>
 
 
   <table class="table">
@@ -33,48 +33,20 @@
         
     </thead>
     <tbody>
-        {% for forum in object_list %}
-            <tr>{% if forum.forum_group == 'GENERAL' %}
+        {% for forum in category.forum_set.all %}
+            <tr>
                 <td><a href='{{ forum.get_absolute_url }}'>{{ forum.title}}</a>
             
             
             
-            </td><td></td><td></td><td></td> {% endif %}</tr>
+            </td><td></td><td></td><td></td></tr>
         {% endfor %}
     </tbody>
   </table>
 </div>
 
 
-<div class="panel panel-entertainment">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Entertainment</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-        <tr><th class='col-sm-6'>Title</th><th class='col-sm-2'>Most Popular Thread</th>
-            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Moderators</th></tr>
-        
-    </thead>
-  </table>
-</div>
-
-
-
-<div class="panel panel-work">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Work & School</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-        <tr><th class='col-sm-6'>Title</th><th class='col-sm-2'>Most Popular Thread</th>
-            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Moderators</th></tr>
-        
-    </thead>
-  </table>
-</div>
+{% endfor %}
 
 
 

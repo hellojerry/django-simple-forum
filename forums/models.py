@@ -1,21 +1,17 @@
 from django.db import models
 
 from django.core.urlresolvers import reverse
-
-#uncomment this when profiles app is complete.
-#from django.contrib.auth import get_user_model
-#User = get_user_model()
 from django.contrib.auth.models import User
 from precise_bbcode.fields import BBCodeTextField
 
-'''
+
 class ForumCategory(models.Model):
     title = models.CharField(max_length=100)
     
     
     def __unicode__(self):
         return self.title
-'''
+
 
 
 
@@ -24,18 +20,7 @@ class Forum(models.Model):
     title = models.CharField(max_length=100)
     #moderators = models.ManyToManyField(UserProfile)
     
-    #get rid of these and replay with FK to Category
-    GENERAL = 'GENERAL'
-    ENTERTAINMENT = 'ENTERTAINMENT'
-    WORK = 'WORK'
-    FORUM_GROUPS = (
-        (GENERAL,'GENERAL'),
-        (ENTERTAINMENT,'ENTERTAINMENT'),
-        (WORK,'WORK'),
-    )
-    forum_group = models.CharField(max_length=30, choices=FORUM_GROUPS, default=ENTERTAINMENT)
-    
-    #category = models.ForeignKey(ForumCategory)
+    category = models.ForeignKey(ForumCategory, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     
     
@@ -44,9 +29,17 @@ class Forum(models.Model):
     
     def get_absolute_url(self):
         return reverse('forums:single_forum', args=[self.id])
+    '''
+    def get_most_popular_thread(self):
+    
+    def get_num_posts(self):
+    
+    '''
+    
+    
     
     def __unicode__(self):
-        return str(self.id)
+        return self.title
 
 
 class Thread(models.Model):
@@ -91,6 +84,10 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse('forums:single_post', args=[self.id])
+    
+    '''
+    def link_to_post_in_thread(self):
+    '''
     
     
     def __unicode__(self):

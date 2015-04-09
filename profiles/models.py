@@ -27,7 +27,9 @@ class Profile(models.Model):
     '''
     def get_favorite_forum(self):
         for post in self.user.post_set.all():
-       '''
+    
+    def get_favorite_thread(self):
+    '''
         
     
     

@@ -22,7 +22,7 @@
     </thead>
     <tbody>
         {% for post in object_list %}
-            <tr><td><p>{{post.author}}</p>
+            <tr><td><p><a href='{{ post.author.profile.get_absolute_url }}'>{{post.author}}</p>
             <img src='{{MEDIA_URL}}{{post.author.profile.avatar}}' class='img-responsive'/></td>
               <td><p>{{ post.text.rendered|safe }}</p></td><td></td></tr>
             <tr><td>{{post.created}}</td>

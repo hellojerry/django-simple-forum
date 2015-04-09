@@ -54,7 +54,8 @@
             <li><a href="{% url 'logout' %}">Log Out</a></li>
         {% else %}
             
-            <li><a href="{% url 'register' %}">Log In or Register</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
         {% endif %}
           </ul>
 
@@ -72,8 +73,8 @@
 
 {% endblock %}
 
-
-
+{% block paginator %}
+{% endblock %}
 
 {% block footer %}
 
@@ -83,13 +84,14 @@
 </div>
 
 
-         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    
-     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/start/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+ 
 <script>
     $(document).ready(function(){
         {% block jquery %}

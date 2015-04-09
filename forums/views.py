@@ -5,22 +5,28 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, FormView, FormMixin
 from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views.generic.list import MultipleObjectMixin
-from .models import Forum, Thread, Post
+from .models import Forum, Thread, Post, ForumCategory
 from forums.forms import PostForm, NewThreadForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+'''
+rewrite tests for this first view
+'''
+
+
+
 
 class ForumIndexView(ListView):
     template_name = 'index.html'
-    model = Forum
+    model = ForumCategory
     
 
     
 class ForumView(SingleObjectMixin, ListView):
     template_name = 'forum.html'
     model = Thread
-    paginate_by = 30
+    paginate_by = 2
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object(queryset=Forum.objects.filter(id=kwargs.get('pk', None)))
@@ -34,6 +40,8 @@ class ForumView(SingleObjectMixin, ListView):
     def get_queryset(self):
         return self.object.thread_set.all()
     
+
+
 
 class ThreadView(SingleObjectMixin, ListView):
     template_name = 'thread.html'
@@ -52,6 +60,10 @@ class ThreadView(SingleObjectMixin, ListView):
     
     def get_queryset(self):
         return self.object.post_set.all()
+
+'''
+rewrite this to be its own page so that form_invalid will work properly.
+'''
 
 class ReplyFormView(FormView):
     form_class = PostForm
@@ -82,6 +94,12 @@ class ReplyFormView(FormView):
     def form_invalid(self, form):
         return HttpResponseRedirect(reverse('forums:thread', args=[self.thread.pk]))
 
+
+'''
+combine these two views
+and remove form visibility for unnaceptable users.
+display the form via jquery after a button push
+'''
 
 class SinglePostView(DetailView):
     model = Post
