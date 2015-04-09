@@ -7,6 +7,36 @@
 {% endblock %}
 
 
+{% block jquery %}
+
+
+ $(function() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      modal: true,
+      width: 600,
+      show: {
+        effect: "blind",
+        duration: 200
+      },
+      hide: {
+        effect: "explode",
+        duration: 200
+      },
+      
+
+    });
+    
+    $( ".update" ).click(function() {
+
+      $( "#dialog" ).dialog( "open" );
+      console.log('the second dialog box was opened');
+    });    
+    
+    
+    
+});
+{% endblock %}
 
 
 {% block content %}
@@ -37,7 +67,7 @@
             {% if request.user != object.user %}    
     <a href='#' class='btn btn-success' style='margin-left: 70px'>Send Private Message</a>
             {% else %}
-    <a href='#' class='btn btn-success' style='margin-left: 70px'>Update Profile</a>
+    <a href='#' class='btn btn-success update' style='margin-left: 70px'>Update Profile</a>
             {% endif %}
 </div>
     
@@ -58,16 +88,13 @@
     <hr>
     <h1 style='text-align:center'>Recent Posts</h1>
     <hr>
-    <ul>
-        {% for post in object.get_last_5_posts %}
-        <li style='list-style-type:none'><a href='{{ post.get_absolute_url }}'>{{post}}</a></li>
-        <p>{{ post }}</p>
-        <br>
-        {% endfor %}
 
-    </ul>
-    <table>
+    <table class='table'>
+        {% for post in object.get_last_five_posts %}
+        <tr><td><a href='{{ post.get_absolute_url }}'>{{post.thread.title}}</a>
         
+        </td><td class='pull-right'>{{ post.created }}</td></tr>
+        {% endfor %}
         
         
         
@@ -75,17 +102,41 @@
 </div>
 
 <div class='col-sm-12'><br><br><br><br><hr>
-    {% endblock %}
+</div>
+
+</div>
+
+
+<div id="dialog" title="Edit Profile">
+ 
+  <div>
+
+        
+        
+        
+      <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+      {{ form.as_ul }}
+    <input class='btn btn-reply' type='submit' value='Update' style='margin-left: 250px'/></form>
+
+
     
     
-</div>{% block footer %}
+
+
+  </div>
+</div> 
+
+
+
+
+
+{% endblock %}
+    
+    
+{% block footer %}
 
 {% include 'footer.html'%}
 {% endblock %}</div>
-
-
-    
-
 
 
 
