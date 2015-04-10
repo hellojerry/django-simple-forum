@@ -6,7 +6,7 @@ from forums.tests import create_keyed_thread
 from forums.models import Post, Thread
 
 from profiles.models import Profile
-from profiles.forms import RegisterForm, LoginForm
+from profiles.forms import RegisterForm, LoginForm, EditProfileForm
 ## replace this with the get_user_model() once profiles are set up.
 from django.contrib.auth.models import User
 
@@ -48,7 +48,7 @@ class UserProfileModelTest(TestCase):
         self.assertIn(post4,profile.get_last_five_posts())
         self.assertIn(post5,profile.get_last_five_posts())
 
-### TEST IMAGE UPLOAD IM GONNA DO SOFTBALL SHIT FOR NOW
+
 
 
 class ProfileViewTest(TestCase):
@@ -60,43 +60,25 @@ class ProfileViewTest(TestCase):
     
 
 
-class ProfileEditTest(TestCase):
-    
-    def test_profile_edit_calls_correct_template(self):
-        profile = create_profile()
-        response = self.client.get('/profiles/edit/%s/' % profile.slug)
-        self.assertTemplateUsed(response, 'edit_profile.html')
-
-
-
-
-'''
-
-    def test_single_post_view_calls_correct_template(self):
-        thread = create_keyed_thread()
-        user = User.objects.create()
-        post = Post.objects.create(thread_id=thread.id,author=user)
-        response = self.client.get('/forums/single_post/%d/' % post.id)
-        self.assertTemplateUsed(response, 'single_post.html')
-
-'''
-
 class RegistrationTest(TestCase):
+    
+    def setUp(self):
+        self.client = Client()
+    
     
     def test_registration_alls_correct_template(self):
         response = self.client.get('/register/')
-        self.assertTemplateUsed(response, 'auth.html')
+        self.assertTemplateUsed(response, 'register.html')
         
     def test_register(self):
         response = self.client.post(
             '/register/',{
             'username': 'name',
             'password': 'password',
-            'password2': 'password2',
-            'email': 'a@b.com',
-            'form_tag':'register',})
+            'password2': 'password',
+            'email': 'a@b.com',})
         self.assertEqual(response.status_code, 200)
-        
+    
         
 class RegisterFormTest(TestCase):
     

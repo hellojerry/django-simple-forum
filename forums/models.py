@@ -65,8 +65,16 @@ class Thread(models.Model):
     def get_absolute_url(self):
         return reverse('forums:thread', args=[self.id])
     
+    '''
+    test this
+    '''
     
-
+    def get_last_30_posts_reversed(self):
+        return reverse(self.post_set.all()[0:30])
+    '''
+        def get_last_five_posts(self):
+        return self.user.post_set.all().order_by('-id')[0:5]
+    '''
     
     
     def __unicode__(self):

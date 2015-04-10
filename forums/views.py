@@ -63,7 +63,10 @@ class ThreadView(SingleObjectMixin, ListView):
 
 '''
 rewrite this to be its own page so that form_invalid will work properly.
+
+grab a queryset of the last page's worth of posts.
 '''
+
 
 class ReplyFormView(FormView):
     form_class = PostForm
@@ -94,12 +97,6 @@ class ReplyFormView(FormView):
     def form_invalid(self, form):
         return HttpResponseRedirect(reverse('forums:thread', args=[self.thread.pk]))
 
-
-'''
-combine these two views
-and remove form visibility for unnaceptable users.
-display the form via jquery after a button push
-'''
 
 class SinglePostView(DetailView):
     model = Post
