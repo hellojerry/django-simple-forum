@@ -67,7 +67,7 @@ $(function(){
     
  
     
-<div class='col-sm-6'>
+<div class='col-sm-7'>
     <h1 style='margin-left:200px;'>{{ object.user.username }}</h1>
 
         <hr>
@@ -106,7 +106,7 @@ $(function(){
             {% endif %}
 </div>
     
-<div class='col-sm-4  col-sm-offset-1'>
+<div class='col-sm-5'>
     <h1 style='text-align:center'>Posting Stats</h1>
     <table class='table'>
         <thead>
@@ -117,7 +117,12 @@ $(function(){
         </thead>
         <tbody>
             <tr><td>Postcount</td><td class='pull-right'>{{ object.get_num_posts }}</td></tr>
-            <tr><td>Favorite Forum</td><td class='pull-right'>Placeholder</td></tr>
+            <tr><td>Favorite Forum</td><td class='pull-right'>
+                <a href='{{ object.get_favorite_forum.get_absolute_url }}'>
+                    {{ object.get_favorite_forum}}</a></td></tr>
+            <tr><td>Favorite Thread</td><td class='pull-right'>
+            <a href='{{ object.get_favorite_thread.get_absolute_url }}'>
+                {{ object.get_favorite_thread }}</a></td></tr>
         </tbody>
     </table>
     <hr>

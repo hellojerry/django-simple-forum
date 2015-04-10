@@ -49,6 +49,12 @@ class UserProfileModelTest(TestCase):
         self.assertIn(post5,profile.get_last_five_posts())
 
 
+##test the two "favorites" querysets
+    '''
+    def test_get_favorite_forum(self):
+        
+    def test_get_favorite_thread(self):
+    '''
 
 
 class ProfileViewTest(TestCase):
@@ -57,6 +63,12 @@ class ProfileViewTest(TestCase):
         profile = create_profile()
         response = self.client.get('/profiles/%s/' % profile.slug )
         self.assertTemplateUsed(response, 'profile.html')
+    
+##test the profile update form
+'''
+ClassProfileUpdateFormTest(TestCase):
+
+'''
     
 
 

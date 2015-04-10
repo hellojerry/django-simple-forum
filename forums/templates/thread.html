@@ -5,6 +5,12 @@
     <title>{{ thread.forum.title }}</title>
 {% endblock %}
 
+{% block stylesheet %}
+{% if thread.forum.custom_css %}
+  <link rel='stylesheet' href='{{STATIC_URL}}{{forum.custom_css}}'>
+{% else %}
+{% endif %}  
+{% endblock %}
 
 
 {% block content %}

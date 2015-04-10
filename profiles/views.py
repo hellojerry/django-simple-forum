@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from django.contrib import messages
 from .models import Profile
 from .forms import EditProfileForm, RegisterForm, LoginForm
@@ -20,6 +20,9 @@ class ProfileView(UpdateView):
     template_name = 'profile.html'
     form_class = EditProfileForm
 
+class ProfileIndexView(ListView):
+    template = 'profile_index.html'
+    model = Profile
 
 
 

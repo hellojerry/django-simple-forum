@@ -67,7 +67,7 @@ def outbox(request, slug):
         'profile': profile,
     }
     return render(request, template, context)
-
+'''
 @login_required
 def view_direct_message(request, dm_id):
     message = get_object_or_404(DirectMessage, id=dm_id)
@@ -88,7 +88,7 @@ def view_direct_message(request, dm_id):
     }
     
     return render(request, template, context)
-
+'''
 @login_required
 def view_conversation(request, pk):
     template = 'chain.html'
@@ -103,3 +103,4 @@ def view_conversation(request, pk):
     return render(request, template, context)
     
     
+

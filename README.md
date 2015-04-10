@@ -12,4 +12,6 @@ Commit as of 4/10/15:
     - directmessages app now includes composition of new messages. Replies are not yet available.
     - spiked directmessages app is almost complete - only feature to add is the reply, and tests.
             
-            
+Commit of 4/10/15, #2:
+
+    - "profile" page now includes a user's favorite thread and forum.

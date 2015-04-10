@@ -22,7 +22,7 @@ class Forum(models.Model):
     
     category = models.ForeignKey(ForumCategory, blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    
+    custom_css = models.FileField(upload_to='forum_stylesheets/%Y/%m/%d/', blank=True, null=True)
     
     def get_last_post(self):
         return self.thread_set.all().latest('last_post').post_set.all().latest('created')
@@ -61,6 +61,8 @@ class Thread(models.Model):
     def num_replies(self, ):
         return self.post_set.all().count() - 1
 
+    def count_all_posts(self):
+        return self.post_set.all().count()
     
     def get_absolute_url(self):
         return reverse('forums:thread', args=[self.id])
@@ -71,10 +73,9 @@ class Thread(models.Model):
     
     def get_last_30_posts_reversed(self):
         return reverse(self.post_set.all()[0:30])
-    '''
-        def get_last_five_posts(self):
-        return self.user.post_set.all().order_by('-id')[0:5]
-    '''
+
+    
+
     
     
     def __unicode__(self):

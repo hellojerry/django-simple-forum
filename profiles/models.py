@@ -20,17 +20,49 @@ class Profile(models.Model):
         return reverse('profiles:profile', args=[self.slug])
     
 
+
     
     def get_num_posts(self):
         return self.user.post_set.all().count()
     def get_last_five_posts(self):
         return self.user.post_set.all().order_by('-id')[0:5]
-    '''
-    def get_favorite_forum(self):
-        for post in self.user.post_set.all():
-    
+
+#test these two querysets
+
     def get_favorite_thread(self):
-    '''
+        counter = {}
+        max_count = 0
+        for post in self.user.post_set.all():
+             try:
+                 counter[post.thread]
+                 counter[post.thread] += 1
+             except KeyError:
+                 counter[post.thread] = 1
+             if counter[post.thread] > max_count:
+                 max_count = counter[post.thread]
+                 favorite = post.thread
+        if max_count == 0:
+            favorite = None
+        return favorite
+    
+    def get_favorite_forum(self):
+        counter = {}
+        max_count = 0
+        for post in self.user.post_set.all():
+            try:
+                counter[post.thread.forum]
+                counter[post.thread.forum] += 1
+            except KeyError:
+                counter[post.thread.forum] = 1
+            if counter[post.thread.forum] > max_count:
+                max_count = counter[post.thread.forum]
+                favorite = post.thread.forum
+        if max_count == 0:
+            favorite = None
+            
+        return favorite
+
+##trivial? maybe not test these    
 
     def get_all_profiles(self):
         return User.objects.all().order_by('username')
