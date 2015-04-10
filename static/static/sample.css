@@ -1,3 +1,58 @@
+/* this first group is fairly self-explanatory.
+ * To find colors easily, head to the W3Schools Colorpicker at
+ * http://www.w3schools.com/tags/ref_colorpicker.asp
+ */
+
+body {
+    background-color:black !important;
+}
+
+body link {
+    gold !important
+}
+
+p {
+    color: gold;
+}
+
+a {
+    color:gold;
+}
+
+input[type='text'], textarea {
+    background-color:gray;
+}
+
+.table-bordered-general > thead > tr > th,
+.table-bordered-general > tbody > tr > th,
+.table-bordered-general > tfoot > tr > th,
+.table-bordered-general > thead > tr > td,
+.table-bordered-general > tbody > tr > td,
+.table-bordered-general > tfoot > tr > td {
+   border: 1px solid green;
+   background-color: black;
+   color:gold;
+}
+
+.panel-general {
+    background-color: black;
+    
+}
+
+.panel-general > .panel-heading {
+    background-color: #33CC33;
+    color:gold;
+    border-color: green;
+    border-radius: 11px;
+
+}
+
+/*This section covers the navbar. It looks a bit much
+ *but the entire thing can be generated at the following URL:
+ *http://bootstrapdesigntools.com/tools/bootstrap-menu-builder/#/contact
+ */
+
+
 #custom-bootstrap-menu.navbar-default .navbar-brand {
     color: rgba(119, 119, 119, 1);
 }
@@ -49,10 +104,13 @@
     wrap: hard;
 }
 
-p{
-    max-width: 1000px;
-    word-wrap:break-word;
-}
+
+/* this last section is for the various buttons on the screen.
+ * you can find a button generator at the following:
+ * http://charliepark.org/bootstrap_buttons/
+ */
+
+
 
 .btn-reply {
   background-color: hsl(125, 100%, 28%) !important;
@@ -158,4 +216,3 @@ p{
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
   -webkit-font-smoothing: antialiased;
 }
-

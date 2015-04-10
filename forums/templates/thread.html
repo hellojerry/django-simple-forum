@@ -7,7 +7,7 @@
 
 {% block stylesheet %}
 {% if thread.forum.custom_css %}
-  <link rel='stylesheet' href='{{STATIC_URL}}{{forum.custom_css}}'>
+  <link rel='stylesheet' href='{{MEDIA_URL}}{{thread.forum.custom_css}}'>
 {% else %}
 {% endif %}  
 {% endblock %}
@@ -18,31 +18,31 @@
 
 <div class="panel panel-general">
 
-  <div class="panel-heading"><a href='{{ thread.forum.get_absolute_url }}'>{{thread.forum.title}}</a> >> <a href='{{ thread.get_absolute_url}}'>{{ thread.title }}</a></div>
+  <div class="panel-heading"><a href='{{ thread.forum.get_absolute_url }}'>
+  {{thread.forum.title}}</a> >> <a href='{{ thread.get_absolute_url}}'>{{ thread.title }}</a></div>
 
 
-  <table class="table table-bordered">
+  <table class="table table-bordered-general" style=''>
     <thead>
-        <tr><th width='15%'>Poster</th><th width='80%'>Post</th><th width='5%'></th></tr>
+        <tr><th width='15%'>Poster</th><th width='85%'>Post</th></tr>
         
     </thead>
     <tbody>
         {% for post in object_list %}
-            <tr><td><p><a href='{{ post.author.profile.get_absolute_url }}'>{{post.author}}</p>
+            <tr class='post'><td><p><a href='{{ post.author.profile.get_absolute_url }}'>{{post.author}}</p>
             <img src='{{MEDIA_URL}}{{post.author.profile.avatar}}' class='img-responsive'/></td>
-              <td><p>{{ post.text.rendered|safe }}</p></td><td></td></tr>
-            <tr><td>{{post.created}}</td>
+              <td><p>{{ post.text.rendered|safe }}</p></tr>
+            <tr class='note'><td>{{post.created}}</td>
               <td><div class='btn-group pull-right' role='group' aria-label='...'>
                 <a href='#' class='btn btn-report'>Report This Post</a>
                 <a href='#' class='btn btn-quote'>Quote</a>
                 
+             
                 
-                
-                
-              </div></td><td></td></tr>
+              </div></td></tr>
             
         {% endfor %}
-        <tr><td></td>
+        <tr class='post'><td></td>
             <td>
                 <form id='reply' method='POST' action='{% url "forums:reply" thread.pk %}'>{% csrf_token %}
                 {{ form.as_p }}
@@ -50,7 +50,7 @@
                 </form>    
             </td>
         </tr>
-        <tr><td></td><td><p class='pull-right'>PAGINATION PLACEHOLDER</p></td><td></td></tr>
+        <tr class='note'><td></td><td><p class='pull-right'>PAGINATION PLACEHOLDER</p></td></tr>
     </tbody>
   </table>
 
