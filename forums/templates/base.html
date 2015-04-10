@@ -35,11 +35,11 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="{% url 'main' %}">Home</a>
                 </li>
-                <li><a href="#">Products</a>
+                <li><a href="#"></a>
                 </li>
-                <li><a href="#">About Us</a>
+                <li><a href="#"></a>
                 </li>
-                <li><a href="#">Contact Us</a>
+                <li><a href="#"></a>
                 </li>
             </ul>
         <form class="navbar-form navbar-left" role="search">
@@ -51,7 +51,9 @@
       <ul class="nav navbar-nav navbar-right" role='navigation'>
 
             {% if request.user.is_authenticated == True %}
+                <li><a href="{% url 'profiles:profile' request.user.profile.slug %}">My Profile</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
+            
         {% else %}
             
             <li><a href="{% url 'login' %}">Log In</a></li>

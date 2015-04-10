@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    {% if outbox %}
+    <title>Your Outbox</title>
+    {% else %}
+    <title>Your Inbox</title>
+    {% endif %}
+{% endblock %}
+
+{% block jquery %}
+
+$(function() {
+   $( "#dialog" ).dialog({
+    autoOpen: false,
+    modal: true,
+    width: 600,
+    show: {
+       effect: "blind",
+       duration: 200
+    },
+     hide: {
+       effect: "explode",
+       duration: 200
+    },
+     
+
+   });
+   
+   $( ".display" ).click(function() {
+   var text = $(this).attr('data-id')
+   var convo = $(this).attr('conversation-id')
+        $('#dialog').prepend('<p>' + text +'</p>')
+        $( "#dialog" ).dialog( "open" );
+   
+   $('.ui-dialog-titlebar-close').click(function(){
+        $('p').remove();
+        $('#dialog').close();
+   });
+     
+   });    
+   
+
+   
+});
+
+
+
+
+{% endblock %}
+{% block stylesheet%}
+    <link rel='stylesheet' href='{{STATIC_URL}}box.css'>
+{% endblock %}
+
+{% block content %}
+    
+{% if outbox %}    
+<div class='panel panel-outbox'>
+<div class="panel-heading">Outbox</a></div>
+        <table class='table'>
+           
+            <thead>
+                <tr>
+                <th width='20%' class='pull-left'>Recipient</th>
+                <th width='25%'>Subject</th>
+                <th width='20%'>Sent</th>
+                <th width='10%'>Replied?</th>
+                <th width='20%'></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages_%}
+                    <tr>
+                        <td>{{ message.recipient}}</td>
+                        <td>{{ message.subject}}</td>
+                        <td>{{ message.sent }}</td>
+                        <td>{% if message.read == True %}Yes{% elif message.replied == False %}No{% endif %}</td>
+                        <td><div class='btn-group' role='group' aria-label='...'>
+                        <button class='btn btn-view display' data-id='{{message.text.rendered}}'>View</button>
+                        <a class='btn btn-compose' href='{% url "directmessages:conversation" message.chain.pk %}'>Conversation</a>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    
+                    <td><a class='btn btn-register' href='{% url "profiles:profile" profile.slug %}'>Back to Profile</a>
+                        <a class='btn btn-quote' href='{% url "directmessages:inbox" profile.slug %}'>Inbox</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>                    
+                    
+                </tr>                
+            </tbody>
+
+        </table>     
+    
+</div>
+    
+{% elif inbox%}
+
+<div class='panel panel-inbox'>
+<div class="panel-heading">Inbox</a></div>
+        <table class='table'>
+            <thead>
+                <tr>
+                <th width='20%' class='pull-left'>Sender</th>
+                <th width='25%'>Subject</th>
+                <th width='20%'>Received</th>
+                <th width='10%'>Replied?</th>
+                <th width='20%'></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages_%}
+                    <tr>
+                        <td>{{ message.sender }}</td>
+                        <td>{{ message.subject}}</td>
+                        <td>{{ message.sent }}</td>
+                        <td>{% if message.read == True %}Yes{% elif message.replied == False %}No{% endif %}</td>
+
+                        
+                        
+                        <td><div class='btn-group' role='group' aria-label='...'>
+                        <button class='btn btn-view display' data-id='{{message.text.rendered}}'>View</button>
+                        <a class='btn btn-compose' href='{% url "directmessages:conversation" message.chain.pk %}'>Conversation</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    
+                    <td><a class='btn btn-register' href='{% url "profiles:profile" profile.slug %}'>Back to Profile</a>
+                        <a class='btn btn-report' href='{% url "directmessages:outbox" profile.slug %}'>Outbox</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>                    
+                    
+                </tr>
+            </tbody>
+        </table>     
+</div>
+    
+    
+    
+{% endif %}
+    
+
+<div id="dialog" title="Message">
+ 
+  <div>
+
+        
+        
+        
+
+{% if inbox %}
+<a class='btn btn-reply' style='margin-left: 150px' href='#'>Reply</a>
+{% else %}
+<a class='btn btn-reply' style='margin-left: 150px' href='#'>Send Another Message</a>
+{% endif %}
+    
+
+
+  </div>
+</div> 
+  
+    
+    
+    
+    
+    
+{% endblock %}
+
+

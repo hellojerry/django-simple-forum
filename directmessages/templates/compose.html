@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    
+    <title>Compose Message to {{receiver}}</title>
+    
+{% endblock %}
+
+
+{% block content %}
+    <h2 style='text-align: center'>Compose a message to {{receiver}}</h2>
+    {% if receiver.profile.avatar %}
+    <img src='{{MEDIA_URL}}{{receiver.profile.avatar}}' class='img-responsive' style='margin-left: 465px'/></td>
+    {% else %}
+    {% endif %}
+    
+    
+    <div class='col-lg-3' style='margin-left: 150px'>
+        
+        
+        
+        
+<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+    {{form.as_p}}
+<input class='btn btn-reply' type='submit' value='Send' style='margin-left: 350px'/></form>
+        
+    
+
+    
+    
+    
+    </div>
+    
+    
+    
+{% endblock %}

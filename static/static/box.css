@@ -1,0 +1,13 @@
+.panel-outbox > .panel-heading{
+    background-color:#0066FF;
+    color:#f5f5f5;
+    border-color:#ddd ;
+    border-radius: 11px;
+}
+
+.panel-inbox > .panel-heading{
+    background-color: #009933;
+    color:#f5f5f5;
+    border-color: #ddd ;
+    border-radius: 11px;
+}
