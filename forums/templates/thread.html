@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    <title>{{ forum.title }}</title>
+    <title>{{ thread.forum.title }}</title>
 {% endblock %}
 
 
@@ -12,7 +12,7 @@
 
 <div class="panel panel-general">
 
-  <div class="panel-heading"><a href='{{ thread.get_absolute_url}}'>{{ thread.title }}</a></div>
+  <div class="panel-heading"><a href='{{ thread.forum.get_absolute_url }}'>{{thread.forum.title}}</a> >> <a href='{{ thread.get_absolute_url}}'>{{ thread.title }}</a></div>
 
 
   <table class="table table-bordered">
