@@ -34,7 +34,7 @@
        {% if request.user == object.author and object.thread.is_active == True %}
         <tr><td></td>
             <td>
-                <form method='POST' action='{% url "forums:edit_post" object.pk %}'>{% csrf_token %}
+                <form method='POST' action=''>{% csrf_token %}
                 {{ form.as_p }}
                 <input type='submit' value='send' class='btn btn-reply'style='margin-left:400px'/>
                 </form>    

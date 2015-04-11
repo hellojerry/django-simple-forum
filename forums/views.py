@@ -98,7 +98,8 @@ class ReplyFormView(FormView):
         return HttpResponseRedirect(reverse('forums:thread', args=[self.thread.pk]))
 
 
-class SinglePostView(DetailView):
+class SinglePostView(UpdateView):
+    form_class = PostForm
     model = Post
     template_name = 'single_post.html'
 
@@ -106,20 +107,8 @@ class SinglePostView(DetailView):
         context = super(SinglePostView, self).get_context_data(**kwargs)
         context['form'] = PostForm
         return context
-
-class EditPostView(UpdateView):
-    form_class = PostForm
-    model = Post
-    template_name = 'single_post.html'
-
     
-    def get_object(self, queryset=None):
-        obj = Post.objects.get(id=self.kwargs.get('pk'))
-        return obj
     
-    def get_success_url(self):
-        return reverse('forums:thread', args=[self.object.thread_id])
-
 
 
     
