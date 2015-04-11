@@ -170,8 +170,7 @@ class SinglePostViewTest(TestCase):
 
         self.assertEquals(response.context['form'],PostForm)
 
-class EditPostViewTest(TestCase):
-    
+
     def test_if_valid_edit_updates_object(self):
         thread1 = create_keyed_thread()
         thread2 = create_keyed_thread()
@@ -179,34 +178,13 @@ class EditPostViewTest(TestCase):
         post1 = Post.objects.create(thread_id=thread1.id,author=user, text='1')
         post2 = Post.objects.create(thread_id=thread2.id, author=user, text='1')
         self.client.post(
-            '/forums/single_post/edit/%d/' % post1.id,
+            '/forums/single_post/%d/' % post1.id,
             data={'text': 'hello'}
         )
         self.assertEqual(str(thread1.post_set.all()[0].text), 'hello')
         self.assertNotEqual(str(thread2.post_set.all()[0].text),'hello',)
         self.assertNotEqual(str(thread1.post_set.all()[0].text), '1')
-
-
-    def test_if_valid_edit_redirects_to_thread(self):
-        thread = create_keyed_thread()
-        thread2 = create_keyed_thread()
-        user = User.objects.create()
-        post = Post.objects.create(thread_id=thread.id,author=user)
-        response = self.client.post(
-            '/forums/single_post/edit/%d/' % post.id,
-            data={'text': 'hello'}
-        )
-        self.assertRedirects(response, '/forums/thread/%d/' % thread.id)
         
-    def test_if_invalid_edit_throws_error(self):
-        thread = create_keyed_thread()
-        user = User.objects.create()
-        post = Post.objects.create(thread_id=thread.id,author=user)
-        response = self.client.post(
-            '/forums/single_post/edit/%d/' % post.id,
-            data={'text': ''}
-        )
-        self.assertContains(response, 'This field is required.')       
 
 class ReplyFormViewTest(TestCase):
 

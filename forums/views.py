@@ -108,10 +108,7 @@ class SinglePostView(UpdateView):
         context['form'] = PostForm
         return context
     
-    
 
-
-    
 class CreateThreadView(CreateView):
     form_class = NewThreadForm
     template_name = 'new_thread.html'
