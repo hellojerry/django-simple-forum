@@ -103,11 +103,6 @@ class SinglePostView(UpdateView):
     model = Post
     template_name = 'single_post.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(SinglePostView, self).get_context_data(**kwargs)
-        context['form'] = PostForm
-        return context
-    
 
 class CreateThreadView(CreateView):
     form_class = NewThreadForm
