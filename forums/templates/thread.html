@@ -30,7 +30,12 @@
     <tbody>
         {% for post in object_list %}
             <tr class='post'><td><p><a href='{{ post.author.profile.get_absolute_url }}'>{{post.author}}</p>
+            {% if post.author.profile.avatar %}
+            
             <img src='{{MEDIA_URL}}{{post.author.profile.avatar}}' class='img-responsive'/></td>
+            {% else %}
+              <img src="http://media.giphy.com/media/kHIJtQ981gP1C/200_s.gif" class='img-responsive'alt="...">
+            {% endif %}
               <td><p>{{ post.text.rendered|safe }}</p></tr>
             <tr class='note'><td>{{post.created}}</td>
               <td><div class='btn-group pull-right' role='group' aria-label='...'>
