@@ -4,7 +4,11 @@
 {% block title %}
     <title>{{object.author}}'s post in "{{object.thread.title}}"</title>
 {% endblock %}
-
+{% if object.thread.forum.custom_css %}
+  <link rel='stylesheet' href='{{MEDIA_URL}}{{object.thread.forum.custom_css}}'>
+{% else %}
+{% endif %}  
+{% block stylesheet %}
 
 
 {% block content %}
@@ -26,7 +30,7 @@
     <tbody>
         
             <tr><td>{{object.author}}</td><td>{{ object.text.rendered|safe }}</td></tr>
-       
+       {% if request.user == object.author and object.thread.is_active == True %}
         <tr><td></td>
             <td>
                 <form method='POST' action='{% url "forums:edit_post" object.pk %}'>{% csrf_token %}
@@ -35,7 +39,8 @@
                 </form>    
             </td>
         </tr>
-      
+      {% else %}
+      {% endif %}
     </tbody>
   </table>
 </div>    

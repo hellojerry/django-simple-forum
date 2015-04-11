@@ -21,8 +21,11 @@ class ProfileView(UpdateView):
     form_class = EditProfileForm
 
 class ProfileIndexView(ListView):
-    template = 'profile_index.html'
+    template_name = 'profile_index.html'
     model = Profile
+    paginate_by = 20
+    
+
 
 
 
@@ -49,7 +52,7 @@ class RegisterView(FormView):
 
         user = authenticate(username=username, password=password)
         profile = Profile.objects.create(
-            user=user,slug=slug
+            user=user,slug=slug, name=username,
         )
         login(self.request, user)
         

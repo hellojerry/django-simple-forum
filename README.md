@@ -21,3 +21,7 @@ Commit of 4/10/15, #3:
     - added custom css functionality for forums and threads.
     - The an admin user will need to make the upload. Please see the file titled "sample.css"
         for an example of which elements the file needs to touch in order to display properly.
+
+Commit of 4/10/15, #4:
+
+    - added profile index page with thumbnails and links to profiles.

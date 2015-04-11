@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    
+    <title>All Profiles</title>
+    
+{% endblock %}
+
+
+
+
+{% block stylesheet %}
+    
+{% endblock %}
+
+
+{% block content %}
+  
+<div class='row'>
+    
+    <h2 style='text-align: center'>Users</h2>
+    
+</div>
+    <hr>
+    <div class='row'>
+    {% for object in object_list %}
+        
+        <div class='col-sm-4' style='text-align: center;'>
+    <div class="thumbnail toggle" style='background-color: #33CC33; border-radius:11px;'>
+        {% if object.avatar %}
+      <img src='{{MEDIA_URL}}{{object.avatar}}' class='img-responsive'
+           style='height: 100px; width:100px; margin-top:20px;'alt="...">
+        {% else %}
+        <img src="http://media.giphy.com/media/kHIJtQ981gP1C/200_s.gif"
+             style='height: 100px; width:100px;margin-top:20px;'alt="...">
+        {% endif %}
+      <div class="caption">
+        <h3 style='color: gold'>{{ object }}</h3>
+        <p></p>
+        <p><a href="{% url "profiles:profile" object.slug %}" class="btn btn-primary" role="button">View Profile</a></p>
+      </div>
+    </div>
+
+            
+        
+
+        
+    
+
+</div>
+        
+        <!-- this will make a new row after 3 pics -->
+        {% cycle '' '' '</div><br/><div class="row">'%}
+{% endfor %}
+    </div>
+  
+{% endblock %}
+ 
+ 
+   
+   
+    
+    

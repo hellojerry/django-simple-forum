@@ -73,7 +73,8 @@ class Profile(models.Model):
     def get_received_messages(self):
         return DirectMessage.objects.filter(recipient=self.user)
     
-    
+    class Meta:
+        ordering = ['name']
     
     def __unicode__(self):
         return '%s' % self.user.username
