@@ -9,7 +9,6 @@ from directmessages.models import DirectMessage, MessageChain
 class Profile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=25, blank=True, null=True)
-    ##set this up as a defaultable
     avatar = models.ImageField(upload_to='avatars/%Y/%m/%d/', blank=True, null=True)
     description = models.TextField(max_length=500, default=None, blank=True, null=True)
     is_active = models.BooleanField(default=True)

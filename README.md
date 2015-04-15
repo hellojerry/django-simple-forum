@@ -25,3 +25,13 @@ Commit of 4/10/15, #3:
 Commit of 4/10/15, #4:
 
     - added profile index page with thumbnails and links to profiles.
+    
+Commits as of 4/14/15:
+
+    - added querysets to display most popular thread in a given forum on the index page.
+    - added pagination to thread and forum views.
+    - upon replying to a thread, a decorator verifies that the user is logged in and active.
+    - inactive (banned) users will be redirected to a "You've been banned" page.
+    - after login, a user will be redirected to the thread they were attempting to post in,
+        assuming they weren't logging in from the main page.
+    - from the single post view, users now have the option to look at the page their post inhabits.

@@ -34,10 +34,6 @@ class Forum(models.Model):
     
     def get_absolute_url(self):
         return reverse('forums:single_forum', args=[self.id])
-    '''
-    def get_most_popular_thread(self):
-    '''
-    
 
     
     def get_most_popular_thread(self):

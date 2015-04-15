@@ -32,6 +32,9 @@ def compose(request, pk):
     }
     return render(request, template, context)
 
+
+
+
 @login_required
 def inbox(request, slug):
     template = 'box.html'
@@ -67,28 +70,8 @@ def outbox(request, slug):
         'profile': profile,
     }
     return render(request, template, context)
-'''
-@login_required
-def view_direct_message(request, dm_id):
-    message = get_object_or_404(DirectMessage, id=dm_id)
-    all_messages = DirectMessage.objects.filter(chain=message.chain)
-    template = 'directmessages/templates/view.html'
 
-    if message.sender != request.user and message.receiver != request.user:
-        raise Http404
-    
-    if not message.read:
-        message.read = True
-        message.read_at = datetime.datetime.now()
-        message.save()
-    
-    context = {
-        'message': message,
-        'all_messages': all_messages,
-    }
-    
-    return render(request, template, context)
-'''
+
 @login_required
 def view_conversation(request, pk):
     template = 'chain.html'
@@ -102,5 +85,7 @@ def view_conversation(request, pk):
     }
     return render(request, template, context)
     
-    
-
+'''
+@login_required
+def reply(request, pk)
+'''

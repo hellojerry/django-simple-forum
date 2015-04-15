@@ -41,19 +41,33 @@
 {% endblock %}
 
 {% block paginator %}
-{% if is_paginated %}
-<div class='pagination'>
-  <span class='page-links'>
-    
-      
-      <a href='?page={{ page_obj.number }}'>{{ page_obj.number}}</a>
-      
-    
-    
-    
-  </span>
-</div>  
-{% endif %} 
-</div> 
   
-{% endblock %}
+  {% if is_paginated %}
+  
+  <div class='pagination pull-right'>
+    
+    <span class='page-links'>
+      
+      {% if page_obj.has_previous %}
+        
+        <a href='?page=1'>First Page</a>
+        
+        <a href='?page={{ page_obj.previous_page_number }}'>Previous</a>
+        
+      {% endif %}
+      
+      <span class='page-current'>
+        
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}  
+      </span>       
+        {% if page_obj.has_next %}  
+          <a href='?page={{ page_obj.next_page_number }}'>Next Page</a>  
+        {% endif %}
+          <a href='?page={{ page_obj.paginator.num_pages }}'>Final Page</a>
+
+    </span> 
+  </div>
+{% endif %}
+
+</div>
+{% endblock %}  

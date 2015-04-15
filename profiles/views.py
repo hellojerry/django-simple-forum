@@ -42,9 +42,7 @@ def my_logout(request):
     return HttpResponseRedirect('/')
 
 
-'''
-test these two functionally
-'''
+
 
 
 class RegisterView(FormView):
@@ -84,7 +82,6 @@ class LoginView(FormView):
         else:
             try:
                 self.request.session['thread']
-                print self.request.session['thread']
                 thread_id = self.request.session['thread']
                 self.success_url ='/forums/thread/%d/?page=last' % thread_id
                 
