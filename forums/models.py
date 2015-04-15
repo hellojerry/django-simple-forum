@@ -1,7 +1,12 @@
 from django.db import models
 
+
+from django.core.paginator import Paginator
+
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.shortcuts import HttpResponseRedirect
+
 from precise_bbcode.fields import BBCodeTextField
 
 
@@ -71,8 +76,8 @@ class Thread(models.Model):
     test this
     '''
     
-    def get_last_30_posts_reversed(self):
-        return reverse(self.post_set.all()[0:30])
+    def get_last_30_posts(self):
+        return self.post_set.all()[0:30]
 
     
 
@@ -80,6 +85,9 @@ class Thread(models.Model):
     
     def __unicode__(self):
         return self.title
+
+
+
     
 class Post(models.Model):
     thread = models.ForeignKey(Thread)
@@ -94,9 +102,22 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('forums:single_post', args=[self.id])
     
-    '''
+    #for this redirect to work properly, the pagination number argument
+    #in this function must match the paginate_by value in ThreadView.
+        
     def link_to_post_in_thread(self):
-    '''
+        thread_posts = Post.objects.filter(thread_id=self.thread.id)
+        paginator = Paginator(thread_posts, 10)
+        target_page = None
+        for page_number in range(1, paginator.num_pages+1):
+            if self in paginator.page(page_number).object_list:
+                target_page = page_number
+                break
+            else:
+                pass
+        if target_page != None:
+            return '/forums/thread/%d/?page=%d' %(self.thread.id, target_page)
+    
     
     
     def __unicode__(self):

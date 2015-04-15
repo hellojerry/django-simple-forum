@@ -39,7 +39,7 @@
               <td><p>{{ post.text.rendered|safe }}</p></tr>
             <tr class='note'><td>{{post.created}}</td>
               <td><div class='btn-group pull-right' role='group' aria-label='...'>
-                <a href='#' class='btn btn-report'>Report This Post</a>
+                
                 <a href='#' class='btn btn-quote'>Quote</a>
                 
              
@@ -55,8 +55,8 @@
                 </form>    
             </td>
         </tr>
-        <tr class='note'><td></td><td>
-        <p class='pull-right'>PAGINATION PLACEHOLDER</p></td></tr>
+        
+
     </tbody>
   </table>
 
@@ -70,7 +70,7 @@
   
   {% if is_paginated %}
   
-  <div class='pagination'>
+  <div class='pagination pull-right'>
     
     <span class='page-links'>
       
@@ -84,24 +84,14 @@
       
       <span class='page-current'>
         
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        
-        
-      </span>
-            
-        {% if page_obj.has_next %}
-          
-          <a href='?page={{ page_obj.next_page_number }}'>Next Page</a>
-          
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}  
+      </span>       
+        {% if page_obj.has_next %}  
+          <a href='?page={{ page_obj.next_page_number }}'>Next Page</a>  
         {% endif %}
-        
           <a href='?page={{ page_obj.paginator.num_pages }}'>Final Page</a>
-      
-      
-    </span>
-    
-    
-    
+
+    </span> 
   </div>
 {% endif %}
 

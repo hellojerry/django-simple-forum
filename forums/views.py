@@ -9,6 +9,8 @@ from .models import Forum, Thread, Post, ForumCategory
 from forums.forms import PostForm, NewThreadForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 '''
 rewrite tests for this first view
@@ -46,15 +48,10 @@ class ForumView(SingleObjectMixin, ListView):
 class ThreadView(SingleObjectMixin, ListView):
     template_name = 'thread.html'
     model = Post
-    paginate_by = 5
+    paginate_by = 10
     
     def get(self, request, *args, **kwargs):
         print request.GET
-        #print vars(self.paginator_class._get_page_range)
-        #print self.paginator_class._get_num_pages
-        #print self.paginator_class._get_page_range
-        #print self.paginator_class.page_range
-        #print self.paginator_class
         self.object = self.get_object(queryset=Thread.objects.filter(id=kwargs.get('pk', None)))
         return super(ThreadView, self).get(request, *args, **kwargs)
     
@@ -67,18 +64,12 @@ class ThreadView(SingleObjectMixin, ListView):
     def get_queryset(self):
         return self.object.post_set.all()
 
-'''
-rewrite this to be its own page so that form_invalid will work properly.
-
-grab a queryset of the last page's worth of posts.
-'''
 
 
 class ReplyFormView(FormView):
     form_class = PostForm
     template_name = 'thread.html'
     
-    #add in the permissions decorator later
     
     
     #@method_decorator(login_required)
@@ -95,18 +86,54 @@ class ReplyFormView(FormView):
         post.save()
         post.thread.save()
         
-        #self.success_url = reverse('forums:thread', args=[self.thread.id])
-        self.success_url = HttpResponseRedirect('/forums/thread/%d/?page=last', self.thread.id)
-        #self.success_url = reverse('forums:thread', args=[self.thread.id, self.page])
-        #self.success_url = HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
+        self.success_url = reverse('forums:thread', args=[self.thread.id])
+        self.success_url = '/forums/thread/%d/?page=last' % self.thread.id
         return super(ReplyFormView, self).form_valid(form)
-
-
 #TEST THIS!
 
     def form_invalid(self, form):
-        return HttpResponseRedirect(reverse('forums:thread', args=[self.thread.pk]))
+        return HttpResponseRedirect('/forums/thread/%d/?page=last' % self.thread.id)
 
+##rewrite this to be a way to grab a quote.
+
+'''
+class ReplyView(FormView, SingleObjectMixin):
+    form_class = PostForm
+    template_name = 'thread_reply.html'
+    
+    #add in the permissions decorator later
+    
+    
+    def get(self, request, *args, **kwargs):
+        print request.GET
+        self.object = self.get_object(queryset=Thread.objects.filter(id=kwargs.get('pk', None)))
+        return super(ReplyView, self).get(request, *args, **kwargs)
+    
+    #@method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        print self.request.POST
+        self.thread = Thread.objects.get(id=kwargs.get('pk', None))
+        return super(ReplyView, self).dispatch(*args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super(ReplyView, self).get_context_data(**kwargs)
+        context['thread'] = self.object
+        context['form'] = PostForm
+        return context
+    
+    
+    
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = User.objects.get(id=self.request.user.id)
+        post.thread = self.thread
+        post.text = form.cleaned_data['text']
+        post.save()
+        post.thread.save()
+        
+        self.success_url = '/forums/thread/%d/?page=last' % self.thread.id
+        return super(ReplyView, self).form_valid(form)
+'''
 
 class SinglePostView(UpdateView):
     form_class = PostForm
