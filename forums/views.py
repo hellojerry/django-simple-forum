@@ -26,7 +26,7 @@ class ForumIndexView(ListView):
 class ForumView(SingleObjectMixin, ListView):
     template_name = 'forum.html'
     model = Thread
-    paginate_by = 2
+    paginate_by = 30
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object(queryset=Forum.objects.filter(id=kwargs.get('pk', None)))
@@ -46,9 +46,15 @@ class ForumView(SingleObjectMixin, ListView):
 class ThreadView(SingleObjectMixin, ListView):
     template_name = 'thread.html'
     model = Post
-    paginate_by = 40
+    paginate_by = 5
     
     def get(self, request, *args, **kwargs):
+        print request.GET
+        #print vars(self.paginator_class._get_page_range)
+        #print self.paginator_class._get_num_pages
+        #print self.paginator_class._get_page_range
+        #print self.paginator_class.page_range
+        #print self.paginator_class
         self.object = self.get_object(queryset=Thread.objects.filter(id=kwargs.get('pk', None)))
         return super(ThreadView, self).get(request, *args, **kwargs)
     
@@ -77,6 +83,7 @@ class ReplyFormView(FormView):
     
     #@method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        print self.request.POST
         self.thread = Thread.objects.get(id=kwargs.get('pk', None))
         return super(ReplyFormView, self).dispatch(*args, **kwargs)
     
@@ -88,7 +95,10 @@ class ReplyFormView(FormView):
         post.save()
         post.thread.save()
         
-        self.success_url = reverse('forums:thread', args=[self.thread.id])
+        #self.success_url = reverse('forums:thread', args=[self.thread.id])
+        self.success_url = HttpResponseRedirect('/forums/thread/%d/?page=last', self.thread.id)
+        #self.success_url = reverse('forums:thread', args=[self.thread.id, self.page])
+        #self.success_url = HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
         return super(ReplyFormView, self).form_valid(form)
 
 
@@ -133,5 +143,4 @@ class CreateThreadView(CreateView):
         self.success_url = reverse('forums:thread', args=[thread.id])
         return super(CreateThreadView, self).form_valid(form)
         
-    
 
