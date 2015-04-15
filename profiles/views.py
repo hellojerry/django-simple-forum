@@ -26,6 +26,14 @@ class ProfileIndexView(ListView):
     paginate_by = 20
     
 
+def banned(request):
+    template = 'banned.html'
+    admins = User.objects.filter(is_staff=True)
+    
+    context = {
+        'admins': admins,
+    }
+    return render(request, template, context)
 
 
 
@@ -71,5 +79,15 @@ class LoginView(FormView):
         password = self.request.POST['password']
         user = authenticate(username=username, password=password)
         login(self.request, user)
-        self.success_url = reverse('profiles:profile', args=[username])
+        if self.request.user.profile.is_active == False:
+            self.success_url = reverse('profiles:banned')
+        else:
+            try:
+                self.request.session['thread']
+                print self.request.session['thread']
+                thread_id = self.request.session['thread']
+                self.success_url ='/forums/thread/%d/?page=last' % thread_id
+                
+            except:
+                self.success_url = reverse('profiles:profile', args=[username])
         return super(LoginView, self).form_valid(form)

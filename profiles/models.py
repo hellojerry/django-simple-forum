@@ -18,8 +18,6 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         return reverse('profiles:profile', args=[self.slug])
-    
-
 
     
     def get_num_posts(self):

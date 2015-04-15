@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.shortcuts import HttpResponseRedirect
+
 
 from precise_bbcode.fields import BBCodeTextField
 
@@ -36,10 +36,34 @@ class Forum(models.Model):
         return reverse('forums:single_forum', args=[self.id])
     '''
     def get_most_popular_thread(self):
+    '''
+    
+
+    
+    def get_most_popular_thread(self):
+        counter = {}
+        max_count = 0
+        for thread in self.thread_set.all():
+            counter[thread.id] = thread.count_all_posts()
+            if counter[thread.id] > max_count:
+                max_count = counter[thread.id]
+                favorite = thread.id
+        if max_count == 0:
+            favorite = None
+        return Thread.objects.get(id=favorite)
+    
+    def get_most_popular_thread_url(self):
+        favorite = self.get_most_popular_thread().id
+        return Thread.objects.get(id=favorite).get_absolute_url()
+    
     
     def get_num_posts(self):
+        postcount = []
+        for thread in self.thread_set.all():
+            postcount.append(thread.count_all_posts())
+        return sum(postcount)
     
-    '''
+    
     
     
     
@@ -71,10 +95,6 @@ class Thread(models.Model):
     
     def get_absolute_url(self):
         return reverse('forums:thread', args=[self.id])
-    
-    '''
-    test this
-    '''
     
     def get_last_30_posts(self):
         return self.post_set.all()[0:30]

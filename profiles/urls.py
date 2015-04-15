@@ -6,4 +6,5 @@ urlpatterns = patterns('',
 
     url(r'^(?P<slug>[-\w]+)/$', ProfileView.as_view(), name='profile'),
     url(r'^$', ProfileIndexView.as_view(), name='profile_index'),
+    url(r'^banned/banned/$', 'profiles.views.banned', name='banned'),
 )

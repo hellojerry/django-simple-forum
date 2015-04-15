@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    
+
+<div class='col-sm-4 col-sm-offset-4'>   
+    
+<p>It looks like you've been banned! You can still access your profile.
+Message an admin or moderator to get this fixed!</p>    
+
+<ul>{% for member in admins %}
+<li><a href='{% url "profiles:profile" member.profile.slug %}'>Go To {{ member }}'s profile.</a>
+</li>{% endfor %}</ul>    
+    
+</div>     
+    
+{% endblock %}

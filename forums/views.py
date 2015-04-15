@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from profiles.custom import active_and_login_required
 
 '''
 rewrite tests for this first view
@@ -53,6 +54,8 @@ class ThreadView(SingleObjectMixin, ListView):
     def get(self, request, *args, **kwargs):
         print request.GET
         self.object = self.get_object(queryset=Thread.objects.filter(id=kwargs.get('pk', None)))
+        request.session['thread'] = self.object.id
+        print 'thread id sent to session %s' % request.session['thread']
         return super(ThreadView, self).get(request, *args, **kwargs)
     
     def get_context_data(self, **kwargs):
@@ -72,7 +75,7 @@ class ReplyFormView(FormView):
     
     
     
-    #@method_decorator(login_required)
+    @method_decorator(active_and_login_required)
     def dispatch(self, *args, **kwargs):
         print self.request.POST
         self.thread = Thread.objects.get(id=kwargs.get('pk', None))
@@ -86,7 +89,6 @@ class ReplyFormView(FormView):
         post.save()
         post.thread.save()
         
-        self.success_url = reverse('forums:thread', args=[self.thread.id])
         self.success_url = '/forums/thread/%d/?page=last' % self.thread.id
         return super(ReplyFormView, self).form_valid(form)
 #TEST THIS!
@@ -145,7 +147,7 @@ class CreateThreadView(CreateView):
     form_class = NewThreadForm
     template_name = 'new_thread.html'
     
-    ##add in method decorator
+    @method_decorator(active_and_login_required)
     def dispatch(self, *args, **kwargs):
         self.forum = Forum.objects.get(id=kwargs.get('pk', None))
         return super(CreateThreadView, self).dispatch(*args, **kwargs)

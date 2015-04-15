@@ -35,11 +35,13 @@
     <tbody>
         {% for forum in category.forum_set.all %}
             <tr>
-                <td><a href='{{ forum.get_absolute_url }}'>{{ forum.title}}</a>
+                <td><a href='{{ forum.get_absolute_url }}'>{{ forum.title}}</a></td>
+                <td><a href='{{forum.get_most_popular_thread_url }}'>
+                {{ forum.get_most_popular_thread }}</a></td>
+                <td>{{ forum.get_num_posts }}</td>
             
             
-            
-            </td><td></td><td></td><td></td></tr>
+            <td></td></tr>
         {% endfor %}
     </tbody>
   </table>
