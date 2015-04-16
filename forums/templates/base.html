@@ -35,7 +35,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="{% url 'main' %}">Home</a>
                 </li>
-                <li><a href="#"></a>
+                <li><a href='#' id='bbcode'>BBcode Tips</a></li>
                 </li>
                 <li><a href="#"></a>
                 </li>
@@ -59,7 +59,107 @@
         </div>
     </div>
 </div>
+<div id='dialog-bbcode' title='How to use BBCode in the forums and in private messages'>
+    <p style='color:black'>This forum uses Django-Precise-BBCode.
+    You can find the documentation
+    <a href='http://django-precise-bbcode.readthedocs.org/en/1.0.8/index.html'>here</a>.</p>
+    <table class='table' style='overflow: scroll; height: 500px;'>
+        
+        <thead>
+            
+            <th>BBCode</th>
+            <th>Function</th>
+            <th>Options</th>
+            <th>Examples</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>B</td>
+                <td>creates bold text</td>
+                <td></td>
+                <td>[b]bold text[/b]</td>
+            </tr>
+            <tr>
+                <td>i</td>
+                <td>creates italic text</td>
+                <td></td>
+                <td>[i]italics text[/i]</td>
+            </tr>
+            <tr>
+                <td>u</td>
+                <td>creates underlined text</td>
+                <td></td>
+                <td>[u]underlined text[/u]</td>
+            </tr>
+            <tr>
+                <td>s</td>
+                <td>strikes through text</td>
+                <td></td>
+                <td>[s]strike text[/s]</td>
+            </tr>
+            <tr>
+                <td>list</td>
+                <td>creates an unordered list</td>
+                <td>1: ordered list, A: ordered list (alphabetic)</td>
+                <td>[list][*]one[*]two[/list], [list=1][*]one[*]two[/list]</td>
+            </tr>
+            <tr>
+                <td>*</td>
+                <td>creates a list item</td>
+                <td></td>
+                <td>[list][*]one[*]two[/list]</td>
+            </tr>
+            <tr>
+                <td>code</td>
+                <td>retains all formatting</td>
+                <td></td>
+                <td>[code][b]example[/b][/code]</td>
+            </tr>
+            <tr>
+                <td>quote</td>
+                <td>creates a blockquote</td>
+                <td></td>
+                <td>[quote]quoted string[/quote]</td>
+            </tr>            
+            <tr>
+                <td>center</td>
+                <td>creates a centered block</td>
+                <td></td>
+                <td>[center]example[/center]</td>
+            </tr>
+            <tr>
+                <td>color</td>
+                <td>changes text color</td>
+                <td></td>
+                <td>[color=red]red text[/color], [color=#FFFFFF]white text[/color]</td>
+            </tr>
+            <tr>
+                <td>url</td>
+                <td>makes a url</td>
+                <td></td>
+                <td>[url]http://example.com[/url]</td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td>makes an image</td>
+                <td></td>
+                <td>[img]http://xyz.com/logo.png[/img]</td>
+            </tr>        
+            
+            
+            
+            
+            
+        </tbody>
+        
+        
+        
+        
+        
+    </table>
+</div>
 <div class='container'>
+    
 {% block breadcrumb %}
     
 {% endblock %}
@@ -92,6 +192,30 @@
  
 <script>
     $(document).ready(function(){
+        $(function(){
+            $('#dialog-bbcode').dialog({
+                autoOpen: false,
+                modal:true,
+                width:1000,
+                height:500,
+                show: {
+                    effect: 'blind',
+                    duration:200
+                },
+                hide: {
+                    effect: 'explode',
+                    duration: 200
+                },
+            });
+            $('#bbcode').click(function(){
+                $('#dialog-bbcode').dialog('open');
+                
+            });
+        });
+        
+        
+        
+        
         {% block jquery %}
         {% endblock %}
     });
@@ -100,22 +224,6 @@
     
 </script>
 </body>    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
