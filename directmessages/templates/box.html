@@ -32,7 +32,7 @@ $(function() {
    $( ".display" ).click(function() {
    var text = $(this).attr('data-id')
    var convo = $(this).attr('conversation-id')
-        $('#dialog').prepend('<p>' + text +'</p>')
+        $('#dialog').prepend('<p style="text-align: center">' + text +'</p>')
         $( "#dialog" ).dialog( "open" );
    
    $('.ui-dialog-titlebar-close').click(function(){
@@ -76,7 +76,7 @@ $(function() {
                         <td>{{ message.recipient}}</td>
                         <td>{{ message.subject}}</td>
                         <td>{{ message.sent }}</td>
-                        <td>{% if message.read == True %}Yes{% elif message.replied == False %}No{% endif %}</td>
+                        <td>{% if message.replied == True %}Yes{% elif message.replied == False %}No{% endif %}</td>
                         <td><div class='btn-group' role='group' aria-label='...'>
                         <button class='btn btn-view display' data-id='{{message.text.rendered}}'>View</button>
                         <a class='btn btn-compose' href='{% url "directmessages:conversation" message.chain.pk %}'>Conversation</a>
@@ -118,7 +118,7 @@ $(function() {
                         <td>{{ message.sender }}</td>
                         <td>{{ message.subject}}</td>
                         <td>{{ message.sent }}</td>
-                        <td>{% if message.read == True %}Yes{% elif message.replied == False %}No{% endif %}</td>
+                        <td>{% if message.replied == True %}Yes{% elif message.replied == False %}No{% endif %}</td>
 
                         
                         
@@ -155,12 +155,6 @@ $(function() {
         
         
         
-
-{% if inbox %}
-<a class='btn btn-reply' style='margin-left: 150px' href='#'>Reply</a>
-{% else %}
-<a class='btn btn-reply' style='margin-left: 150px' href='#'>Send Another Message</a>
-{% endif %}
     
 
 
@@ -174,4 +168,9 @@ $(function() {
     
 {% endblock %}
 
+{% block footer %}
+    <br><br>
+    {% include 'footer.html'%}
+    
+{% endblock %}
 

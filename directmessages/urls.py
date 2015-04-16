@@ -7,4 +7,6 @@ urlpatterns = patterns('',
     url(r'^inbox/(?P<slug>[-\w]+)/$', 'directmessages.views.inbox', name='inbox'),
     url(r'^outbox/(?P<slug>[-\w]+)/$', 'directmessages.views.outbox', name='outbox'),
     url(r'^conversation/(?P<pk>\d+)/$', 'directmessages.views.view_conversation', name='conversation'),
+    url(r'^quote/(?P<pk>\d+)/$', 'directmessages.views.quote', name='quote'),
+
 )

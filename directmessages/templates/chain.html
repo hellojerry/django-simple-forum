@@ -12,22 +12,23 @@
     
 <div class="panel panel-general">
 
-  <div class="panel-heading">{% for message in chain.directmessage_set.all %} {{message.subject|first}}{% endfor %}</div>
+  <div class="panel-heading">RE:{% for message in chain.directmessage_set.all %} {{message.subject|first}}{% endfor %}</div>
 
-  <table class="table table-bordered">
+  <table class="table table-bordered-general">
     <thead>
-        <tr><th width='15%'>From</th><th width='80%'>Content</th><th width='5%'></th></tr>
+        <tr><th width='15%'>From</th><th width='80%'>Your Conversation with
+            <a href='{{ other_user.profile.get_absolute_url }}'>{{other_user}}</a></th><th width='5%'></th></tr>
         
     </thead>
     <tbody>
         {% for message in chain.directmessage_set.all %}
-            <tr><td><p><a href='{{ message.sender.profile.get_absolute_url }}'>{{sender.sender}}</p>
+            <tr><td><p><a href='{{ message.sender.profile.get_absolute_url }}'>{{message.sender}}</p>
             <img src='{{MEDIA_URL}}{{message.sender.profile.avatar}}' class='img-responsive'/></td>
               <td><p>{{ message.text.rendered|safe }}</p></td><td></td></tr>
-            <tr><td>{{message.created}}</td>
+            <tr><td>{{message.sent}}</td>
               <td><div class='btn-group pull-right' role='group' aria-label='...'>
-                <a href='#' class='btn btn-report'>Report This Post</a>
-                <a href='#' class='btn btn-quote'>Quote</a>
+                
+                <a href='#' data-id='{{message.id}}' class='btn btn-quote quoter'>Quote</a>
                 
                 
                 
@@ -37,9 +38,9 @@
         {% endfor %}
         <tr><td></td>
             <td>
-                <form id='reply' method='POST' action='#'>{% csrf_token %}
+                <form id='reply' method='POST' action=''>{% csrf_token %}
                 {{ form.as_p }}
-                <input type='submit' value='Add another Message' class='btn btn-reply' style='margin-left:350px'/>
+                <input type='submit' value='Reply' class='btn btn-reply' style='margin-left:400px'/>
                 </form>    
             </td>
         </tr>
@@ -60,3 +61,34 @@
     
     
 {% endblock%}
+
+{% block footer %}
+    <br><br>
+    {% include 'footer.html'%}
+    
+{% endblock %}
+
+{% block jquery %}
+
+$('.quoter').click(function(){
+    var messageid = $(this).attr("data-id");
+    var go_to_url = ('/message/quote/x/')
+    go_to_url = go_to_url.replace('x', messageid);
+      $.ajax({
+      type:'GET',
+      url: go_to_url,
+      success: function(data){
+      var sender = (data.sender)
+      var text = (data.text)
+      var box = $('textarea').val();
+      if (box.length>0)
+        $('textarea').val(box + ' ' + sender + ' ' + 'said:' + ' ' + '[quote]' + text + '[/quote]');
+      else
+        $('textarea').val(sender + ' ' + 'said:' + ' ' + '[quote]' + text + '[/quote]');
+     }
+     })
+});      
+    
+    
+    
+{% endblock %}

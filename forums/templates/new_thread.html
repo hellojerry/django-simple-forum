@@ -2,34 +2,39 @@
 
 
 {% block title %}
-    <title>{{ forum.title }}</title>
+    <title>{{ forum.title }} - New Thread</title>
 {% endblock %}
+
+{% block stylesheet %}
 {% if forum.custom_css %}
-  <link rel='stylesheet' href='{{STATIC_URL}}{{forum.custom_css}}'>
+  <link rel='stylesheet' href='{{MEDIA_URL}}{{forum.custom_css}}'>
 {% else %}
-{% endif %}
+  {% endif %}
+{% endblock %}
+
 
 
 {% block content %}
-
+{{ forum }}
 
 <div class="panel panel-general">
 
-  <div class="panel-heading">{{ thread.title }}</div>
+  <div class="panel-heading text-center">Make a new thread!</div>
 
 
-  <table class="table">
-    <thead>
-        <tr><th class='col-sm-2'></th><th class='col-sm-10 text-center'>Make a new thread!</th></tr>
-        
-    </thead>
+  <table class="table table-bordered-general">
+
     <tbody>
 
-        <tr><td>PLACEHOLDER - AVATAR</td>
+        <tr><td class='col-sm-2'>{% if request.user.is_authenticated == True %}
+          <p><a href='{{ request.user.profile.get_absolute_url }}'>{{request.user}}</p>
+                  <img src='{{MEDIA_URL}}{{ request.user.profile.avatar }}' class='img-responsive'>
+                  {% else %}
+                  {% endif %}</td>
             <td>
                 <form method='POST' action=''>{% csrf_token %}
                 {{ form.as_p }}
-                <input type='submit' value='send'/>
+                <input type='submit' value='Submit' class='btn btn-reply' style='margin-left: 400px'/>
                 </form>    
             </td>
         </tr>
@@ -37,5 +42,11 @@
   </table>
 </div>    
     
+    
+{% endblock %}
+
+{% block footer %}
+    <br><br><br><br><br><br><br><br><br><br><br>
+    {% include 'footer.html'%}
     
 {% endblock %}

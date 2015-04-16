@@ -29,11 +29,23 @@
         
     </thead>
     <tbody>
+      <tr style='border-collapse: collapse'></tr>
         {% for thread in object_list %}
             <tr><td><a href='{{thread.get_absolute_url }}'>{{ thread.title }}</a></td><td>{{ thread.creator }}</td>
             <td>{{ thread.num_replies }}</td><td>{{ thread.last_post }}</td> </tr>
         {% endfor %}
+      
+        <tr style='border-bottom-width: 0'>
+        <td style='border-bottom-width: 0; border-left-width: 0; border-right-width: 0;'></td>
+        <td style='border-bottom-width: 0; border-left-width: 0; border-right-width: 0;'></td>
+        <td style='border-bottom-width: 0; border-left-width: 0; border-right-width: 0;'></td>
+        <td style='border-bottom-width: 0; border-left-width: 0; border-right-width: 0;'>
+          <a href='{% url "forums:create_thread" forum.pk %}' class='btn btn-quote'>Make a Thread</a></td>
+      </tr>
+        
     </tbody>
+    
+
   </table>
    
     
@@ -70,4 +82,13 @@
 {% endif %}
 
 </div>
-{% endblock %}  
+
+<br><br>
+{% endblock %}
+
+
+{% block footer %}
+    
+    {% include 'footer.html'%}
+    
+{% endblock %}

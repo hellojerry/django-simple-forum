@@ -98,6 +98,13 @@
 </div>
 {% endblock %}    
 
+{% block footer %}
+  
+  {% include 'footer.html' %}
+  
+{% endblock %}
+
+
 
 {% block jquery %}
 
@@ -105,23 +112,19 @@ $('.quoter').click(function(){
     var postid = $(this).attr("data-id");
     var go_to_url = ('/forums/quote/x/')
     go_to_url = go_to_url.replace('x', postid);
-    console.log(go_to_url)
       $.ajax({
       type:'GET',
       url: go_to_url,
       success: function(data){
-      
+      var author = (data.author)
       var text = (data.text)
       var box = $('textarea').val();
       if (box.length>0)
-        $('textarea').val(box + '[quote]' + text + '[/quote]');
+        $('textarea').val(box + ' ' + author + ' ' + 'said:' + ' ' + '[quote]' + text + '[/quote]');
       else
-        $('textarea').val('[quote]' + text + '[/quote]');
+        $('textarea').val(author + ' ' + 'said:' + ' ' + '[quote]' + text + '[/quote]');
      }
      })
-
-
-
 });  
 
 

@@ -29,7 +29,7 @@
   <table class="table">
     <thead>
         <tr><th class='col-sm-6'>Title</th><th class='col-sm-2'>Most Popular Thread</th>
-            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Moderators</th></tr>
+            <th class='col-sm-1'>Posts</th><th class='col-sm-2'>Most Recent Thread</th></tr>
         
     </thead>
     <tbody>
@@ -41,7 +41,7 @@
                 <td>{{ forum.get_num_posts }}</td>
             
             
-            <td></td></tr>
+            <td><a href='{{ forum.get_last_post.link_to_post_in_thread }}'>{{ forum.get_last_post.thread}}</a></td></tr>
         {% endfor %}
     </tbody>
   </table>

@@ -17,7 +17,8 @@ class ComposeForm(forms.ModelForm):
             })
         }
         
-class ReplyForm(ComposeForm):
+class MessageReplyForm(ComposeForm):
+    subject = forms.CharField(required=False, widget=forms.HiddenInput())
     fields = ['text']
     widgets = {
         'text': forms.Textarea(attrs={
@@ -25,3 +26,4 @@ class ReplyForm(ComposeForm):
             'placeholder': 'Start typing to compose a reply...'
         })
     }
+    

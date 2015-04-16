@@ -23,9 +23,9 @@ class ForumCategory(models.Model):
 
 class Forum(models.Model):
     title = models.CharField(max_length=100)
-    #moderators = models.ManyToManyField(UserProfile)
+    #moderators = models.ManyToManyField(User, blank=True, null=True)
     
-    category = models.ForeignKey(ForumCategory, blank=True, null=True)
+    category = models.ForeignKey(ForumCategory)
     is_active = models.BooleanField(default=True)
     custom_css = models.FileField(upload_to='forum_stylesheets/%Y/%m/%d/', blank=True, null=True)
     
@@ -68,9 +68,9 @@ class Forum(models.Model):
 
 
 class Thread(models.Model):
-    title = models.CharField(max_length=100, default='')
+    title = models.CharField(max_length=100)
     forum = models.ForeignKey(Forum)
-    creator = models.ForeignKey(User, blank=True, null=True)
+    creator = models.ForeignKey(User)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     last_post = models.DateTimeField(auto_now_add=False, auto_now=True)

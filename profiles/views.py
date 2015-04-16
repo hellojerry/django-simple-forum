@@ -1,19 +1,17 @@
-from django.shortcuts import render, HttpResponseRedirect, redirect
-from django.core.urlresolvers import reverse
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib import messages
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, HttpResponseRedirect
+from django.utils.text import slugify    
+
 from django.views.generic.edit import UpdateView
-from django.views.generic.detail import DetailView
 from django.views.generic import FormView, ListView
-from django.contrib import messages
+
 from .models import Profile
 from .forms import EditProfileForm, RegisterForm, LoginForm
 
-from django.utils.text import slugify
 
-
-    
 
 class ProfileView(UpdateView):
     model = Profile

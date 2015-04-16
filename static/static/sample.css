@@ -216,3 +216,20 @@ input[type='text'], textarea {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
   -webkit-font-smoothing: antialiased;
 }
+
+.btn-create {
+  background-color: hsl(57, 100%, 43%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dbd000", endColorstr="#dbd000");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#dbd000), to(#dbd000));
+  background-image: -moz-linear-gradient(top, #dbd000, #dbd000);
+  background-image: -ms-linear-gradient(top, #dbd000, #dbd000);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dbd000), color-stop(100%, #dbd000));
+  background-image: -webkit-linear-gradient(top, #dbd000, #dbd000);
+  background-image: -o-linear-gradient(top, #dbd000, #dbd000);
+  background-image: linear-gradient(#dbd000, #dbd000);
+  border-color: #dbd000 #dbd000 hsl(57, 100%, 43%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
+  -webkit-font-smoothing: antialiased;
+}

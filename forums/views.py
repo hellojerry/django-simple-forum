@@ -1,17 +1,21 @@
-from django.shortcuts import render, HttpResponseRedirect
-from django.http import Http404, HttpResponse
-from django.core.urlresolvers import reverse
-from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView, FormView, FormMixin
-from django.views.generic.detail import SingleObjectMixin, DetailView
-from django.views.generic.list import MultipleObjectMixin
-from .models import Forum, Thread, Post, ForumCategory
-from forums.forms import PostForm, NewThreadForm
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.utils.decorators import method_decorator
+
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, FormView
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.list import MultipleObjectMixin
+
+from .models import Forum, Thread, Post, ForumCategory
+from .forms import PostForm, NewThreadForm
+
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from profiles.custom import active_and_login_required
+
 import json
 
 
@@ -79,7 +83,6 @@ class ReplyFormView(FormView):
     
     @method_decorator(active_and_login_required)
     def dispatch(self, *args, **kwargs):
-        print self.request.POST
         self.thread = Thread.objects.get(id=kwargs.get('pk', None))
         return super(ReplyFormView, self).dispatch(*args, **kwargs)
     
@@ -100,44 +103,6 @@ class ReplyFormView(FormView):
 
 ##rewrite this to be a way to grab a quote.
 
-'''
-class ReplyView(FormView, SingleObjectMixin):
-    form_class = PostForm
-    template_name = 'thread_reply.html'
-    
-    #add in the permissions decorator later
-    
-    
-    def get(self, request, *args, **kwargs):
-        print request.GET
-        self.object = self.get_object(queryset=Thread.objects.filter(id=kwargs.get('pk', None)))
-        return super(ReplyView, self).get(request, *args, **kwargs)
-    
-    #@method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        print self.request.POST
-        self.thread = Thread.objects.get(id=kwargs.get('pk', None))
-        return super(ReplyView, self).dispatch(*args, **kwargs)
-    
-    def get_context_data(self, **kwargs):
-        context = super(ReplyView, self).get_context_data(**kwargs)
-        context['thread'] = self.object
-        context['form'] = PostForm
-        return context
-    
-    
-    
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.author = User.objects.get(id=self.request.user.id)
-        post.thread = self.thread
-        post.text = form.cleaned_data['text']
-        post.save()
-        post.thread.save()
-        
-        self.success_url = '/forums/thread/%d/?page=last' % self.thread.id
-        return super(ReplyView, self).form_valid(form)
-'''
 
 class SinglePostView(UpdateView):
     form_class = PostForm
@@ -153,6 +118,13 @@ class CreateThreadView(CreateView):
     def dispatch(self, *args, **kwargs):
         self.forum = Forum.objects.get(id=kwargs.get('pk', None))
         return super(CreateThreadView, self).dispatch(*args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        context['forum'] = self.forum
+        return context    
+    
+    
     
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -180,8 +152,10 @@ def quote(request, pk):
     if request.method == 'GET':
         post = Post.objects.get(id=pk)
         text = str(post.text)
+        author = str(post.author)
         data = json.dumps({
             'text':text,
+            'author': author,
         })
 
         return HttpResponse(data, content_type='application/json')
