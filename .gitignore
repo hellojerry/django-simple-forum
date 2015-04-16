@@ -1,13 +1,24 @@
+<<<<<<< HEAD
+=======
 *.pyc
 *.py~
-
-
+pizza/settings.py
+forums/migrations
+directmessages/migrations
+profiles/migrations
+static/media
+static/root
 
 
 .gitignore~
+>>>>>>> 63e8c8952c9ff7e8704f27b2b52a73389c98c930
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+
+venv
+*.pyc
+staticfiles
 
 # C extensions
 *.so
@@ -20,6 +31,7 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+.eggs/
 lib/
 lib64/
 parts/
@@ -43,9 +55,11 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .coverage
+.coverage.*
 .cache
 nosetests.xml
 coverage.xml
+*,cover
 
 # Translations
 *.mo
