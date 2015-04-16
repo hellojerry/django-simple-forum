@@ -1,11 +1,7 @@
 *.pyc
 *.py~
-pizza/settings.py
-forums/migrations
-directmessages/migrations
-profiles/migrations
-static/media
-static/root
+
+
 
 
 .gitignore~
