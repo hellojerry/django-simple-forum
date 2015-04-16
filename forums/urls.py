@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     #url(r'^thread/reply/(?P<pk>\d+)/$', ReplyView.as_view(), name='quote_reply'),
     url(r'^single_post/(?P<pk>\d+)/$', SinglePostView.as_view(), name='single_post'),
     url(r'^forum/new_thread/(?P<pk>\d+)/$', CreateThreadView.as_view(), name='create_thread'),
+    url(r'^quote/(?P<pk>\d+)/$', 'forums.views.quote', name='quote'),
 )
 

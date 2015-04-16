@@ -40,7 +40,7 @@
             <tr class='note'><td>{{post.created}}</td>
               <td><div class='btn-group pull-right' role='group' aria-label='...'>
                 
-                <a href='#' class='btn btn-quote'>Quote</a>
+                <a href='#' data-id='{{post.id}}' class='btn btn-quote quoter'>Quote</a>
                 
              
                 
@@ -100,18 +100,29 @@
 
 
 {% block jquery %}
-$('input, select, textarea').each(
-  $('textarea').val(' ')
-);
 
-$('#form').submit(function(){
-  if ($.trim($('#reply').val()) === "" ){
-  alert('you didn't fill out the field!');
-  return false;
-  }
-})
+$('.quoter').click(function(){
+    var postid = $(this).attr("data-id");
+    var go_to_url = ('/forums/quote/x/')
+    go_to_url = go_to_url.replace('x', postid);
+    console.log(go_to_url)
+      $.ajax({
+      type:'GET',
+      url: go_to_url,
+      success: function(data){
+      
+      var text = (data.text)
+      var box = $('textarea').val();
+      if (box.length>0)
+        $('textarea').val(box + '[quote]' + text + '[/quote]');
+      else
+        $('textarea').val('[quote]' + text + '[/quote]');
+     }
+     })
 
 
+
+});  
 
 
 

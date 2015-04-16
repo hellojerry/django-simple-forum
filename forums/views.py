@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, FormView, FormMixin
@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from profiles.custom import active_and_login_required
+import json
+
 
 '''
 rewrite tests for this first view
@@ -171,5 +173,19 @@ class CreateThreadView(CreateView):
         
         self.success_url = reverse('forums:thread', args=[thread.id])
         return super(CreateThreadView, self).form_valid(form)
-        
+
+
+    
+def quote(request, pk):
+    if request.method == 'GET':
+        post = Post.objects.get(id=pk)
+        text = str(post.text)
+        data = json.dumps({
+            'text':text,
+        })
+
+        return HttpResponse(data, content_type='application/json')
+
+
+
 

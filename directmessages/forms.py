@@ -17,14 +17,11 @@ class ComposeForm(forms.ModelForm):
             })
         }
         
-class ReplyForm(forms.ModelForm):
-    
-    class Meta:
-        model = DirectMessage
-        fields = ['text']
-        widgets = {
-            'text': forms.Textarea(attrs={
-                'cols':60,
-                'placeholder': 'Start typing to compose a reply...'
-            })
-        }
+class ReplyForm(ComposeForm):
+    fields = ['text']
+    widgets = {
+        'text': forms.Textarea(attrs={
+            'cols':60,
+            'placeholder': 'Start typing to compose a reply...'
+        })
+    }
