@@ -6,8 +6,8 @@ directmessages/migrations
 profiles/migrations
 static/media
 static/root
-db.sqlite3
-manage.py
+
+
 .gitignore~
 # Byte-compiled / optimized / DLL files
 __pycache__/
