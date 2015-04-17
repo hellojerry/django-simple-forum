@@ -21,10 +21,10 @@
   <div class="panel-heading"><a href='{{ thread.forum.get_absolute_url }}'>
   {{thread.forum.title}}</a> >> <a href='{{ thread.get_absolute_url}}'>{{ thread.title }}</a></div>
 
-<div class='table-responsive'>
-  <table class="table table-bordered-general table-responsive" style=''>
+
+  <table class="table table-bordered-general">
     <thead>
-        <tr><th width='15%'>Poster</th><th width='85%'>Post</th></tr>
+        <tr><th class='col-sm-2'>Poster</th><th class='col-sm-10'>Post</th></tr>
         
     </thead>
     <tbody>
@@ -34,9 +34,9 @@
             
             <img src='{{MEDIA_URL}}{{post.author.profile.avatar}}' class='img-responsive'/></td>
             {% else %}
-              <img src="http://media.giphy.com/media/kHIJtQ981gP1C/200_s.gif" class='img-responsive'alt="...">
+              <img src="http://media.giphy.com/media/kHIJtQ981gP1C/200_s.gif" class='img-responsive'alt="..."></td>
             {% endif %}
-              <td><p>{{ post.text.rendered|safe }}</p></tr>
+              <td><p>{{ post.text.rendered|safe }}</p></td></tr>
             <tr class='note'><td>{{post.created}}</td>
               <td><div class='btn-group pull-right' role='group' aria-label='...'>
                 
@@ -51,7 +51,7 @@
             <td>
                 <form id='reply' method='POST' action='{% url "forums:reply" thread.pk %}'>{% csrf_token %}
                 {{ form.as_p }}
-                <input type='submit' value='Reply' class='btn btn-reply' style='margin-left:400px'/>
+                <input type='submit' value='Reply' class='btn btn-reply' style='margin-left: 400px'/>
                 </form>    
             </td>
         </tr>
@@ -59,8 +59,7 @@
 
     </tbody>
   </table>
-</div>
-</div>    
+    
 
 
 

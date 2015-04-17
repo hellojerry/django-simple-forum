@@ -12,8 +12,9 @@ class PostForm(forms.ModelForm):
         fields = ['title','text']
         widgets = {
             'text': forms.Textarea(attrs={
-                'cols':40,
+                #'cols':40,
                 'placeholder': 'Start typing to make a post...',
+                'style':'resize:none',
             })}
 
 
