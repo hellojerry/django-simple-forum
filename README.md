@@ -1,11 +1,16 @@
 
-This is a simple webforum project. This is the master branch for the project -
-another repository with the original code will be set up shortly.
+This is a webforum project!
 
-Special features will be detailed upon completion.
+You can see an example site at djangoforums.herokuapp.com.
 
+The apps are split into a few different functionalities.
 
-            
+Profiles, naturally, deals with user profiles. At this point a user has only a small degree
+of customization available, but I'm toying with ways to change that.
+
+The centerpiece of the site is an old-school internet forums.
+
+Lastly, the directmessages app allows users to send private messages to one another.
 
 Commits as of 4/20/15:
 
