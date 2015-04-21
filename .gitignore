@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 *.pyc
 *.py~
 pizza/settings.py
@@ -11,7 +10,7 @@ static/root
 
 
 .gitignore~
->>>>>>> 63e8c8952c9ff7e8704f27b2b52a73389c98c930
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
