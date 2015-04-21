@@ -4,27 +4,23 @@ another repository with the original code will be set up shortly.
 
 Special features will be detailed upon completion.
 
-Commit as of 4/10/15:
 
-    - continued directmessage app spike
-    - directmessages app now includes inbox, outbox, and conversation viewing.
-    - inbox and outbox include buttons that display dialogs with message content.
-    - directmessages app now includes composition of new messages. Replies are not yet available.
-    - spiked directmessages app is almost complete - only feature to add is the reply, and tests.
             
-Commit of 4/10/15, #2:
 
-    - "profile" page now includes a user's favorite thread and forum.
+Commits as of 4/20/15:
 
-Commit of 4/10/15, #3:
+    - directmessages app is now complete. Users can view conversations with other users in a threaded
+        format.
+    - the search functionality is complete. Upon entering a search term in the navbar, the search
+        function will query the database for users, thread titles, and post content that
+        contains the search terms.
+    - tests for the forums app have been rewritten to account for changes in functionality.
+        the "testutils" file under the main project directory is for commonly used functions.
+        Future changes include more additional moderation tools, and additional profile
+        features.
 
-    - added custom css functionality for forums and threads.
-    - The an admin user will need to make the upload. Please see the file titled "sample.css"
-        for an example of which elements the file needs to touch in order to display properly.
 
-Commit of 4/10/15, #4:
 
-    - added profile index page with thumbnails and links to profiles.
     
 Commits as of 4/14/15:
 
@@ -35,3 +31,27 @@ Commits as of 4/14/15:
     - after login, a user will be redirected to the thread they were attempting to post in,
         assuming they weren't logging in from the main page.
     - from the single post view, users now have the option to look at the page their post inhabits.
+
+Commit of 4/10/15, #4:
+
+    - added profile index page with thumbnails and links to profiles.
+
+
+Commit of 4/10/15, #3:
+
+    - added custom css functionality for forums and threads.
+    - The an admin user will need to make the upload. Please see the file titled "sample.css"
+        for an example of which elements the file needs to touch in order to display properly.
+
+
+Commit of 4/10/15, #2:
+
+    - "profile" page now includes a user's favorite thread and forum.
+
+Commit as of 4/10/15:
+
+    - continued directmessage app spike
+    - directmessages app now includes inbox, outbox, and conversation viewing.
+    - inbox and outbox include buttons that display dialogs with message content.
+    - directmessages app now includes composition of new messages. Replies are not yet available.
+    - spiked directmessages app is almost complete - only feature to add is the reply, and tests.
