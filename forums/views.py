@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, HttpResponseRedirect
 from django.views.generic import ListView
@@ -17,6 +18,7 @@ from django.utils.decorators import method_decorator
 from profiles.custom import active_and_login_required
 
 import json
+from itertools import chain
 
 
 '''
@@ -75,6 +77,8 @@ class ThreadView(SingleObjectMixin, ListView):
 
 
 
+#rewrite these tests.
+
 class ReplyFormView(FormView):
     form_class = PostForm
     template_name = 'thread.html'
@@ -96,12 +100,12 @@ class ReplyFormView(FormView):
         
         self.success_url = '/forums/thread/%d/?page=last' % self.thread.id
         return super(ReplyFormView, self).form_valid(form)
-#TEST THIS!
+
 
     def form_invalid(self, form):
         return HttpResponseRedirect('/forums/thread/%d/?page=last' % self.thread.id)
 
-##rewrite this to be a way to grab a quote.
+
 
 
 class SinglePostView(UpdateView):
@@ -161,5 +165,32 @@ def quote(request, pk):
         return HttpResponse(data, content_type='application/json')
 
 
-
-
+def search(request):
+    try:
+        q = request.GET.get('q', '')
+    except:
+        q = False
+        
+    user_queryset = User.objects.filter(
+        Q(username__icontains=q)
+    )
+    thread_queryset = Thread.objects.filter(
+        Q(title__icontains=q)
+    )
+    post_queryset = Post.objects.filter(
+        Q(text__icontains=q)
+    )
+    results = list(chain(user_queryset, thread_queryset, post_queryset))
+                   
+    if q:
+        query = 'Your search for %s returned the following results:' % q
+    else:
+        query = None
+        
+    template = 'search.html'
+    context = {
+        'q':q,
+        'query': query,
+        'results': results,
+    }
+    return render(request, template, context)

@@ -89,7 +89,7 @@ $(function(){
             {% endif %}
     <hr>
             {% if request.user != object.user %}    
-    <a href='#' class='btn btn-success' style='margin-left: 70px'>Send Private Message</a>
+    <a href='{% url "directmessages:compose" object.pk%}' class='btn btn-success' style='margin-left: 70px'>Send Private Message</a>
             {% else %}
     <div class='btn-group' role='group' aria-label='...'>
     <button class='btn btn-reply update'>Update Profile</button>

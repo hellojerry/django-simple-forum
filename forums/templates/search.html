@@ -1,0 +1,76 @@
+{% extends 'base.html'%}
+{% load search_filters %}
+
+
+{% block content %}
+
+
+
+<h3>{{ query }}</h3>
+
+<h1><u>Users</u></h1>
+<ol>
+    {% for item in results %}
+        {% if item|classname == 'User' %}
+            
+            <li>
+                <a href='{{ item.get_absolute_url }}'>{{ item }}</a>
+                
+                
+            </li>
+        {% endif %}
+    {% endfor %}
+    
+</ol>
+
+<h1><u>Threads</u></h1>
+
+<ol>
+    {% for item in results %}
+        {% if item|classname == 'Thread' %}
+            
+            <li>
+                <a href='{{ item.get_absolute_url }}'>{{ item.title }}</a>
+                
+                
+            </li>
+        {% endif %}
+    {% endfor %}
+    
+</ol>
+
+<h1><u>Posts</u></h1>
+
+<ol>
+    {% for item in results %}
+        {% if item|classname == 'Post' %}
+            
+            <li>
+                <a href='{{ item.get_absolute_url }}'>{{ item.text|truncatewords:50 }}</a>
+                
+                
+            </li>
+        {% endif %}
+    {% endfor %}
+    
+</ol>
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+    
+{% endblock %}
+
+{% block footer %}
+    
+    {% include 'footer.html'%}
+    
+{% endblock %}

@@ -15,14 +15,14 @@
     {% endif %}
     
     
-    <div class='col-lg-3' style='margin-left: 150px'>
+    <div class='col-lg-12' style='text-align: center' >
         
         
         
         
-<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+<form method='POST' action=''enctype='multipart/form-data'>{% csrf_token %}
     {{form.as_p}}
-<input class='btn btn-reply' type='submit' value='Send' style='margin-left: 350px'/></form>
+<input class='btn btn-reply' type='submit' value='Send'/></form>
         
     
 
@@ -35,9 +35,10 @@
     
 {% endblock %}
 
-
+<br><br><br><br><br><br><br><br><br><br><br>
+<div class='container'>
 {% block footer %}
-    <br><br><br><br><br><br><br><br><br><br><br>
+    
     {% include 'footer.html'%}
     
 {% endblock %}

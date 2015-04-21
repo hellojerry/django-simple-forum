@@ -10,13 +10,9 @@ from profiles.forms import RegisterForm, LoginForm, EditProfileForm
 ## replace this with the get_user_model() once profiles are set up.
 from django.contrib.auth.models import User
 
-def create_profile():
-    user = User.objects.create()
-    profile = Profile.objects.create(user=user, slug='k')
-    return profile
+from pizza.testutils import create_profile, create_post, create_keyed_thread
 
-def create_post(profile, thread):
-    return Post.objects.create(thread_id=thread.id, author=profile.user)
+
 
 
 class UserProfileModelTest(TestCase):

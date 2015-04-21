@@ -2,7 +2,7 @@
 
 {% block title %}
 
-<title>RE: {% for message in chain.directmessage_set.all %} {{message.subject|first}}{% endfor %}</title>    
+<title>RE: {% for message in chain.directmessage_set.all %} {{message.subject}}{% endfor %}</title>    
     
 {% endblock %}
 
@@ -12,7 +12,7 @@
     
 <div class="panel panel-general">
 
-  <div class="panel-heading">RE:{% for message in chain.directmessage_set.all %} {{message.subject|first}}{% endfor %}</div>
+  <div class="panel-heading">RE:{% for message in chain.directmessage_set.all %} {{message.subject}}{% endfor %}</div>
 
   <table class="table table-bordered-general">
     <thead>
